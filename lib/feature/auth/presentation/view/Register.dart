@@ -1,27 +1,28 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_team2/core/constant/app_fonts.dart';
-import 'package:flutter_application_team2/feature/auth/presentation/view/Register.dart';
+import 'package:flutter_application_team2/feature/auth/presentation/view/login.dart';
 
 import '../../../../core/constant/app_color.dart';
+import '../../../../core/constant/app_fonts.dart';
 import '../../../../core/constant/app_text_style.dart';
 import '../../data/user_model.dart';
 import '../widget/custom_field.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class Register_Screen extends StatefulWidget {
+  const Register_Screen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<Register_Screen> createState() => _Register_ScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final LoginData _loginData = LoginData();
+class _Register_ScreenState extends State<Register_Screen> {
+  final RegisterData _registerData = RegisterData();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _agreeToTerms = false;
 
   @override
   void dispose() {
-    _loginData.dispose();
+    _registerData.dispose();
     super.dispose();
   }
 
@@ -47,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 //   ),
                 // ),
                 Text(
-                  'Welcome Back !',
+                  'Register Account',
                   style: AppTextStyle.welcomeBackTextStyle,
                 ),
                 const SizedBox(height: 8),
@@ -56,38 +57,46 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: AppTextStyle.descriptionTextStyle,
                 ),
                 const SizedBox(height: 32),
-
                 CustomTextFormField(
                   label: 'Email',
                   hintText: 'brooklynsim@gm | |',
-                  controller: _loginData.emailController,
+                  controller: _registerData.emailController,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Please enter your email';
                     }
-
                     final emailRegex = RegExp(
                       r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
                     );
                     if (!emailRegex.hasMatch(value.trim())) {
                       return 'Email is not correct';
                     }
-
                     return null;
                   },
                 ),
                 const SizedBox(height: 20),
-
+                CustomTextFormField(
+                  label: 'Username',
+                  hintText: 'Username',
+                  controller: _registerData.usernameController,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Please enter your username';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
                 CustomTextFormField(
                   label: 'Password',
-                  hintText: '••••••••',
-                  controller: _loginData.passwordController,
+                  hintText: 'Password',
+                  controller: _registerData.passwordController,
                   isPassword: true,
-                  isHidden: _loginData.isPasswordHidden,
+                  isHidden: _registerData.isPasswordHidden,
                   onSuffixTap: () {
                     setState(() {
-                      _loginData.isPasswordHidden =
-                          !_loginData.isPasswordHidden;
+                      _registerData.isPasswordHidden =
+                          !_registerData.isPasswordHidden;
                     });
                   },
                   validator: (value) {
@@ -97,93 +106,87 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (value.length < 8) {
                       return 'The password must be at least 8 characters long.';
                     }
-
                     return null;
                   },
                 ),
                 const SizedBox(height: 16),
-
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        SizedBox(
-                          height: 24,
-                          child: Checkbox(
-                            value: _loginData.rememberMe,
-                            activeColor: AppColor.primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                _loginData.rememberMe = value ?? false;
-                              });
-                            },
-                          ),
+                    SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: Checkbox(
+                        value: _agreeToTerms,
+                        activeColor: AppColor.primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
                         ),
-                        const SizedBox(width: 9.333),
-                        Text(
-                          'Remember me',
-                          style: TextStyle(
-                            color: AppColor.blackColor,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
+                        onChanged: (value) {
+                          setState(() {
+                            _agreeToTerms = value ?? false;
+                          });
+                        },
+                      ),
                     ),
-                    TextButton(
-                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                      child: Text(
-                        'Forgot password ?',
+                    const SizedBox(width: 12),
+                    RichText(
+                      text: TextSpan(
                         style: TextStyle(
-                          color: AppColor.primaryColor,
+                          color: AppColor.blackColor,
                           fontSize: 14,
                         ),
+                        children: [
+                          const TextSpan(text: 'Agree with '),
+                          TextSpan(
+                            text: 'terms',
+                            style: TextStyle(
+                              color: AppColor.blackColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const TextSpan(text: ' and '),
+                          TextSpan(
+                            text: 'privacy',
+                            style: TextStyle(
+                              color: AppColor.blackColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      onPressed: () {
-                        print("انتقال الى واجهة سهام (chang password)");
-                      },
                     ),
                   ],
                 ),
                 const SizedBox(height: 32),
-
                 CustomPrimaryButton(
-                  text: 'Sign in',
+                  text: 'Sign up',
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      bool isUserValid = await _loginData.loginUserLocal();
-
-                      if (isUserValid) {
-                        if (!mounted) return;
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Login successful!')),
-                        );
-                        print("انتقال لواجهة سالي (home)");
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const HomeScreen(),
-                        //   ),
-                        // );
-                      } else {
-                        if (!mounted) return;
+                      if (!_agreeToTerms) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
-                              'Account not found or password required!',
+                              'Please agree to the terms and privacy policy',
                             ),
                           ),
                         );
+                        return;
                       }
+                      await _registerData.registerUserLocal();
+                      if (!mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Registration Successful!'),
+                        ),
+                      );
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      );
                     }
                   },
                 ),
                 const SizedBox(height: 24),
-
                 Center(
                   child: Text(
                     'Or',
@@ -196,7 +199,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -206,7 +208,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 const SizedBox(height: 32),
-
                 Center(
                   child: RichText(
                     text: TextSpan(
@@ -216,9 +217,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontWeight: FontWeight.w400,
                       ),
                       children: [
-                        const TextSpan(text: "Don’t have account ? "),
+                        const TextSpan(text: "Already have an account ? "),
                         TextSpan(
-                          text: 'Sign up',
+                          text: 'Sign in',
                           style: TextStyle(
                             color: AppColor.primaryColor,
                             fontWeight: FontWeight.w500,
@@ -228,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Register_Screen(),
+                                  builder: (context) => LoginScreen(),
                                 ),
                               );
                             },
