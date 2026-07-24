@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_team2/core/route/app_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
@@ -16,13 +17,9 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       
       builder: (_ , child){ return
-       MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          
-          body: const Center(child: Text('Hello Flutter')),
-        ),
-      );},
+       MaterialApp.router( routerConfig: AppRouter.router,debugShowCheckedModeBanner: false,)
+       
+      ;},
 );
   }
 }
