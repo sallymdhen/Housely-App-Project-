@@ -36,6 +36,8 @@ dependencies:
   flutter_secure_storage: ^10.3.1
   image_picker: ^1.2.3
   go_router: ^17.3.0
+  google_maps_flutter: ^2.12.3
+  geolocator: ^13.0.1 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
@@ -80,10 +82,16 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: Inter
-       fonts:
-         - asset: assets/fonts/Inter_28pt-SemiBold.ttf
-         - asset: assets/fonts/Inter_28pt-Bold.ttf
+  - family: Inter
+    fonts:
+      - asset: assets/fonts/Inter_18pt-Regular.ttf
+        weight: 400
+
+      - asset: assets/fonts/Inter_28pt-SemiBold.ttf
+        weight: 600
+
+      - asset: assets/fonts/Inter_28pt-Bold.ttf
+        weight: 700
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

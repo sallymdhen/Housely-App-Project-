@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_team2/core/route/app_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
@@ -11,18 +12,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-       designSize: const Size(360, 690),
+      designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      
-      builder: (_ , child){ return
-       MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          
-          body: const Center(child: Text('Hello Flutter')),
-        ),
-      );},
-);
+
+      builder: (_, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: AppRoutes.splash,
+
+          // مسؤول عن جميع التنقلات
+          onGenerateRoute: AppRoutes.onGenerateRoute,
+        );
+      },
+    );
   }
 }
