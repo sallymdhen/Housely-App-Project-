@@ -5,6 +5,7 @@ import 'package:flutter_application_team2/feature/auth/presentation/view/Registe
 
 import '../../../../core/constant/app_color.dart';
 import '../../../../core/constant/app_text_style.dart';
+import '../../../../core/route/app_router.dart';
 import '../../data/user_model.dart';
 import '../widget/custom_field.dart';
 
@@ -37,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 48),
                 // Padding(
                 //   padding: const EdgeInsets.only(bottom: 24),
                 //   child: InkWell(
@@ -162,13 +164,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Login successful!')),
                         );
-                        print("انتقال لواجهة سالي (home)");
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const HomeScreen(),
-                        //   ),
-                        // );
+                        Navigator.pushReplacementNamed(
+                          context,
+                          AppRoutes.profile,
+                        );
                       } else {
                         if (!mounted) return;
                         ScaffoldMessenger.of(context).showSnackBar(

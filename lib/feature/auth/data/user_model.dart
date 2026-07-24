@@ -1,6 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// كلاس بسيط لتمثيل البيانات في التطبيق
+class UserModel {
+  final String username;
+  final String email;
+
+  const UserModel({required this.username, required this.email});
+
+  // تابع لجلب بيانات المستخدم المحفوظة محلياً للبروفايل
+  static Future<UserModel?> getSavedUser() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? username = prefs.getString('local_username');
+    String? email = prefs.getString('local_email');
+
+    if (username != null && email != null) {
+      return UserModel(username: username, email: email);
+    }
+    return null;
+  }
+}
+
 class LoginData {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -15,8 +35,11 @@ class LoginData {
 
       if (emailController.text.trim() == savedEmail &&
           passwordController.text.trim() == savedPassword) {
+        // حفظ حالة الجلسة عند تسجيل الدخول
         if (rememberMe) {
           await prefs.setBool('is_logged_in', true);
+        } else {
+          await prefs.setBool('is_logged_in', false);
         }
 
         return true;
@@ -40,13 +63,17 @@ class RegisterData {
   final TextEditingController passwordController = TextEditingController();
   bool isPasswordHidden = true;
 
-  Future<void> registerUserLocal() async {
+  Future<bool> registerUserLocal() async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('local_email', emailController.text.trim());
       await prefs.setString('local_username', usernameController.text.trim());
       await prefs.setString('local_password', passwordController.text.trim());
-    } catch (e) {}
+      await prefs.setBool('is_logged_in', true);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   void dispose() {
