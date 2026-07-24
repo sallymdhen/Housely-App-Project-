@@ -161,8 +161,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       text: 'Save Change',
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          bool saved =
-                              await _editProfileData.saveProfileLocal();
+                          bool saved = await _editProfileData
+                              .saveProfileLocal();
 
                           if (!mounted) return;
 
