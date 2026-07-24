@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           initialRoute: AppRoutes.splash,
 
-          // مسؤول عن جميع التنقلات
           onGenerateRoute: AppRoutes.onGenerateRoute,
         );
       },

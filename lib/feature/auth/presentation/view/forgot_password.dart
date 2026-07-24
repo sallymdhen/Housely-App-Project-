@@ -15,7 +15,6 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  // لا يوجد اختيار في البداية
   int selectedIndex = -1;
   void _continue() {
     if (selectedIndex == -1) {
