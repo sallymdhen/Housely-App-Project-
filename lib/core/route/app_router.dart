@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_application_team2/feature/auth/presentation/view/Register.dart';
+import 'package:flutter_application_team2/feature/auth/presentation/view/login.dart';
 import 'package:flutter_application_team2/feature/details_screen/presentation/view/details_screen.dart';
 import 'package:flutter_application_team2/feature/explore_screen/presentation/view/explore_screen.dart';
 import 'package:flutter_application_team2/feature/favorite_screen/presentation/view/favorite_screen.dart';
@@ -9,16 +12,33 @@ import 'package:flutter_application_team2/feature/list_chat_screen/presentation/
 import 'package:flutter_application_team2/feature/my_booking_screen/presentation/view/my_booking_screen.dart';
 import 'package:flutter_application_team2/feature/navigation/presentation/view/main_screen.dart';
 import 'package:flutter_application_team2/feature/notification_screen/presentation/view/notification_screen.dart';
-import 'package:flutter_application_team2/feature/profile_screen/presentation/view/profile_screen.dart';
+import 'package:flutter_application_team2/feature/profile_screen/presentatoin/view/edit_profile_screen.dart';
+import 'package:flutter_application_team2/feature/profile_screen/presentatoin/view/profile_screen.dart';
 import 'package:flutter_application_team2/feature/search_screen/presentation/view/search_screen.dart';
-
-
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: '/home',
+    initialLocation: '/',
     routes: [
+     
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const LoginScreen(),
+      ),
+
+      
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => const Register_Screen(),
+      ),
+
+      
+      GoRoute(
+        path: '/edit-profile',
+        builder: (context, state) => const EditProfileScreen(),
+      ),
+
       ShellRoute(
         builder: (context, state, child) {
           return MainScreen(child: child);
@@ -26,15 +46,12 @@ class AppRouter {
         routes: [
           GoRoute(
             path: '/home',
-            builder: (context, state) =>  HomeScreen(),
+            builder: (context, state) => HomeScreen(),
             routes: [
-             
-              
               GoRoute(
                 path: 'popular',
                 builder: (context, state) => const PopularScreen(),
               ),
-              
             ],
           ),
 
@@ -79,18 +96,13 @@ class AppRouter {
         path: '/filtter',
         builder: (context, state) => const FiltterScreen(),
       ),
-       
+
       GoRoute(
-  path: '/details',
-  builder: (context, state) {
-    return DetailsScreen(
-      estate: state.extra as EstateModel,
-    );
-  },
-),
-
-
-
+        path: '/details',
+        builder: (context, state) => DetailsScreen(
+          estate: state.extra as EstateModel,
+        ),
+      ),
     ],
   );
 }
