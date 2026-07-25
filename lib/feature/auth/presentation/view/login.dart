@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/core/constant/app_color.dart';
@@ -167,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
 
-                        context.go('/');
+                        context.go('/login');
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
