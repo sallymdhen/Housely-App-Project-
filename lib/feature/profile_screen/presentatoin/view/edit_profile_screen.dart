@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constant/app_color.dart';
 import '../../../../core/constant/app_fonts.dart';
@@ -78,7 +79,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: AppColor.blackColor),
-          onPressed: () => Navigator.maybePop(context),
+          onPressed: () => context.go('/profile'),
+          //Navigator.maybePop(context),
         ),
         title: Text(
           'Edit Profile',
@@ -166,8 +168,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                           if (!mounted) return;
 
-                          if (saved) {
-                            Navigator.maybePop(context);
+                          if (saved) {context.go('/profile');
+                           // Navigator.maybePop(context);
                           }
                         }
                       },

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
+
 import 'package:flutter/material.dart';
-=======
->>>>>>> origin/seham-feature
+
 import 'package:flutter_application_team2/core/route/app_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,44 +26,14 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-<<<<<<< HEAD
+
       builder: (_, child) {
         return MaterialApp.router(
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
-=======
 
-      builder: (_, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.splash,
 
-          onGenerateRoute: AppRoutes.onGenerateRoute,
->>>>>>> origin/seham-feature
-        );
-      },
+      
     );
-  }
-}
-/* 
-
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool isLoggedIn = prefs.getBool('is_logged_in') ?? false;
-
-/////////////////////////////////////////////////////////////////////
-GoRouter(
-  redirect: (context, state) {
-    if (!isLoggedIn && state.matchedLocation != '/') {
-      return '/';
-    }
-
-    if (isLoggedIn && state.matchedLocation == '/') {
-      return '/home';
-    }
-
-    return null;
-  },
-  routes: [
-    ...
-  ],
-);*/
+  });
+}}

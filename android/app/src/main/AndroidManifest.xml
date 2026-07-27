@@ -1,8 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+ <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:label="flutter_application_team2"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+    <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBCqRswc8E76G-OdHcwCD0Ett5bsvOXJ3o"/>
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:flutter_application_team2/feature/auth/presentation/view/Register.dart';
 import 'package:flutter_application_team2/feature/auth/presentation/view/login.dart';
 import 'package:flutter_application_team2/feature/details_screen/presentation/view/details_screen.dart';
@@ -18,13 +17,26 @@ import 'package:flutter_application_team2/feature/profile_screen/presentatoin/vi
 import 'package:flutter_application_team2/feature/search_screen/presentation/view/search_screen.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:flutter_application_team2/feature/location/presentation/view/choose_location_screen.dart';
+import 'package:flutter_application_team2/feature/location/presentation/view/location_permission_screen.dart';
+import 'package:flutter_application_team2/feature/onboarding/presentation/view/onboarding_screen.dart';
+
+import '../../feature/auth/presentation/view/create_new_password.dart';
+import '../../feature/auth/presentation/view/forgot_password.dart';
+import '../../feature/auth/presentation/view/login.dart';
+import '../../feature/auth/presentation/view/password_changed.dart';
+import '../../feature/auth/presentation/view/verify_email.dart';
+import 'package:flutter_application_team2/feature/splash/presentation/view/splash_screen.dart';
+//import 'package:flutter_application_team2/feature/onboarding/presentation/view/onboarding_screen.dart' ;
+
+
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: '/',
+    initialLocation:'/splash',
     routes: [
      
       GoRoute(
-        path: '/',
+        path: '/login',
         builder: (context, state) => const LoginScreen(),
       ),
 
@@ -104,77 +116,130 @@ class AppRouter {
           estate: state.extra as EstateModel,
         ),
       ),
+
+      GoRoute(
+  path: '/splash',
+  builder: (context, state) => const SplashScreen(),
+),
+
+GoRoute(
+  path: '/onboarding',
+  builder: (context, state) => const OnboardingScreen(),
+),
+
+GoRoute(
+  path: '/forgotPassword',
+  builder: (context, state) => const ForgotPassword(),
+),
+
+GoRoute(
+  path: '/verifyEmail',
+  builder: (context, state) => const VerifyEmail(),
+),
+
+GoRoute(
+  path: '/createNewPassword',
+  builder: (context, state) => const CreateNewPassword(),
+),
+
+GoRoute(
+  path: '/passwordChanged',
+  builder: (context, state) => const PasswordChanged(),
+),
+
+GoRoute(
+  path: '/permissionLocation',
+  builder: (context, state) => const LocationPermissionScreen(),
+),
+
+GoRoute(
+  path: '/chooseLocation',
+  builder: (context, state) => const ChooseLocationScreen(),
+),
+ /*GoRoute(
+        path: '/searchEmpty',
+        builder: (context, state) => const SearchEmptyScreen(),
+      ),*/
+/*GoRoute(
+        path: '/writeReview',
+        builder: (context, state) => const WriteReviewScreen(),
+      ),*/
+/*GoRoute(
+        path: '/uploadPhoto',
+        builder: (context, state) => const UploadPhotoScreen(),
+      ),*/
+
+/*GoRoute(
+        path: '/notificationEmpty',
+        builder: (context, state) => const NotificationEmptyScreen(),
+      ),*/
+
+/*GoRoute(
+        path: '/reserve',
+        builder: (context, state) => const ReserveScreen(),
+      ),*/      
+
+
+      /*GoRoute(
+        path: '/reserveData',
+        builder: (context, state) => const ReserveDataScreen(),
+      ),*/      
+
+
+      /*GoRoute(
+        path: '/addNewCard',
+        builder: (context, state) => const AddNewCardScreen(),
+      ),*/      
+
+
+      /*GoRoute(
+        path: '/reservePay',
+        builder: (context, state) => const ReservePayScreen(),
+      ),*/  
+
+      /*GoRoute(
+        path: '/myServeUNComplete',
+        builder: (context, state) => const MyServeUnCompleteScreen(),
+      ),*/  
+
+
+      /*GoRoute(
+        path: '/myServeComplete',
+        builder: (context, state) => const MyServeCompleteScreen(),
+      ),*/   
+
+
+      /*GoRoute(
+        path: '/myServeUNCancel',
+        builder: (context, state) => const MyServeUNCancelScreen(),
+      ),*/        
+
+
+/*GoRoute(
+        path: '/myServeEmpty',
+        builder: (context, state) => const MyServeEmptyScreen(),
+      ),*/        
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ],
   );
 }
-=======
-import 'package:flutter_application_team2/feature/location/presentation/view/choose_location_screen.dart';
-import 'package:flutter_application_team2/feature/location/presentation/view/location_permission_screen.dart';
-import 'package:flutter_application_team2/feature/onboarding/presentation/view/onboarding_screen.dart';
-
-import '../../feature/auth/presentation/view/create_new_password.dart';
-import '../../feature/auth/presentation/view/forgot_password.dart';
-import '../../feature/auth/presentation/view/login.dart';
-import '../../feature/auth/presentation/view/password_changed.dart';
-import '../../feature/auth/presentation/view/verify_email.dart';
-import 'package:flutter_application_team2/feature/splash/presentation/view/splash_screen.dart';
-//import 'package:flutter_application_team2/feature/onboarding/presentation/view/onboarding_screen.dart' ;
-
-class AppRoutes {
-  static const String login = "/login";
-
-  static const String forgotPassword = "/forgotPassword";
-
-  static const String verifyEmail = "/verifyEmail";
-
-  static const String createNewPassword = "/createNewPassword";
-
-  static const String passwordChanged = "/passwordChanged";
-
-  static const String splash = "/splash";
-
-  static const String onboarding = "/onboarding";
-
-  static const chooseLocation = "/chooseLocation";
-
-  static const permissionLocation = "/permissionLocation";
-
-  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case login:
-        return MaterialPageRoute(builder: (_) => const Login());
-
-      case forgotPassword:
-        return MaterialPageRoute(builder: (_) => const ForgotPassword());
-
-      case verifyEmail:
-        return MaterialPageRoute(builder: (_) => const VerifyEmail());
-
-      case createNewPassword:
-        return MaterialPageRoute(builder: (_) => const CreateNewPassword());
-
-      case passwordChanged:
-        return MaterialPageRoute(builder: (_) => const PasswordChanged());
-
-      case splash:
-        return MaterialPageRoute(builder: (_) => const SplashScreen());
-
-      case onboarding:
-        return MaterialPageRoute(builder: (_) => const OnboardingScreen());
-
-      case AppRoutes.permissionLocation:
-        return MaterialPageRoute(
-          builder: (_) => const LocationPermissionScreen(),
-        );
-
-      case AppRoutes.chooseLocation:
-        return MaterialPageRoute(builder: (_) => const ChooseLocationScreen());
-
-      //case login:
-      //      return MaterialPageRoute(builder: (_) => const Login());
-    }
-
-    return null;
-  }
-}
->>>>>>> origin/seham-feature

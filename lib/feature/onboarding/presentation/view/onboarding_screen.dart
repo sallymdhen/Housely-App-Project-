@@ -38,16 +38,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-     context.go('/permissionLocation');
+     context.go('/login');
     }
   }
 
   void skip() {
-    _pageController.animateToPage(
+    context.go('/login');
+   /* _pageController.animateToPage(
       onboardingData.length - 1,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
-    );
+    );*/
   }
 
   @override

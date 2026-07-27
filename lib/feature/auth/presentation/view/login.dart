@@ -137,7 +137,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: EdgeInsets.zero,
                       ),
                       onPressed: () {
-                        print("انتقال الى واجهة سهام");
+                        context.push('/forgotPassword');
+                       // print("انتقال الى واجهة سهام");
                       },
                       child: Text(
                         'Forgot password ?',
@@ -168,7 +169,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
 
-                        context.go('/login');
+                      context.go('/permissionLocation');
+                        
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

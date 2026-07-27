@@ -23,7 +23,9 @@ class LocationPermissionScreen extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(top: 30.h, right: 8.w),
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.go('/home');
+                    },
                     style: OutlinedButton.styleFrom(
                       minimumSize: Size(20.w, 25.h),
                       side: BorderSide(color: Colors.grey.shade300),

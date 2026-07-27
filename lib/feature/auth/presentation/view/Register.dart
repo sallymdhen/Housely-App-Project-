@@ -182,7 +182,7 @@ class _Register_ScreenState extends State<Register_Screen> {
                         ),
                       );
 
-                      context.go('/');
+                      context.go('/login');
                     }
                   },
                 ),
