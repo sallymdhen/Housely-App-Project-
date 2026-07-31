@@ -6,6 +6,7 @@ import 'package:flutter_application_team2/core/widgets/bottom_button.dart';
 import 'package:flutter_application_team2/feature/auth/presentation/widget/auth_app_bar.dart';
 import 'package:flutter_application_team2/feature/auth/presentation/widget/password_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class CreateNewPassword extends StatefulWidget {
   const CreateNewPassword({super.key});
@@ -32,8 +33,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
       ).showSnackBar(const SnackBar(content: Text("Passwords do not match.")));
       return;
     }
-
-    Navigator.pushNamed(context, AppRoutes.passwordChanged);
+    context.go('/passwordChanged');
   }
 
   @override
@@ -47,14 +47,12 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.whiteColor,
-
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 30),
-
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 30.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               const AuthAppBar(),
 
@@ -73,22 +71,28 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
               ),
 
               SizedBox(height: 30.h),
+
               Text(
                 "New Password",
                 style: AppTextStyle.authTitle.copyWith(fontSize: 14.sp),
               ),
-              SizedBox(height: 5),
+
+              SizedBox(height: 5.h),
+
               PasswordField(
                 controller: passwordController,
                 hintText: 'Password',
               ),
 
               SizedBox(height: 10.h),
+
               Text(
                 "Confirm Password",
                 style: AppTextStyle.authTitle.copyWith(fontSize: 14.sp),
               ),
-              SizedBox(height: 5),
+
+              SizedBox(height: 5.h),
+
               PasswordField(
                 controller: confirmController,
                 hintText: 'Password',

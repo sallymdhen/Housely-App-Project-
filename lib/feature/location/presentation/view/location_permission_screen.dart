@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/core/constant/app_color.dart';
-import 'package:flutter_application_team2/core/route/app_router.dart';
 import 'package:flutter_application_team2/core/widgets/bottom_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class LocationPermissionScreen extends StatelessWidget {
   const LocationPermissionScreen({super.key});
@@ -22,7 +22,9 @@ class LocationPermissionScreen extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(top: 30.h, right: 8.w),
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.go('/home');
+                    },
                     style: OutlinedButton.styleFrom(
                       minimumSize: Size(20.w, 25.h),
                       side: BorderSide(color: Colors.grey.shade300),
@@ -59,7 +61,6 @@ class LocationPermissionScreen extends StatelessWidget {
 
               SizedBox(height: 18.h),
 
-              /// Subtitle
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Text(
@@ -73,17 +74,16 @@ class LocationPermissionScreen extends StatelessWidget {
                 ),
               ),
 
-              const Spacer(),
+              SizedBox(height: 80.h),
 
               BottomButton(
                 title: "Use current location",
                 onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.chooseLocation);
+                  context.go('/chooseLocation');
                 },
               ),
 
               SizedBox(height: 18.h),
-
               BottomButton(
                 title: "Select it manually",
                 onPressed: () {},

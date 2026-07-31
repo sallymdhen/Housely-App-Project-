@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/feature/location/presentation/view/choose_location_screen.dart';
 import 'package:flutter_application_team2/feature/location/presentation/view/location_permission_screen.dart';
 import 'package:flutter_application_team2/feature/onboarding/presentation/view/onboarding_screen.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../feature/auth/presentation/view/create_new_password.dart';
 import '../../feature/auth/presentation/view/forgot_password.dart';
@@ -11,60 +12,182 @@ import '../../feature/auth/presentation/view/verify_email.dart';
 import 'package:flutter_application_team2/feature/splash/presentation/view/splash_screen.dart';
 //import 'package:flutter_application_team2/feature/onboarding/presentation/view/onboarding_screen.dart' ;
 
-class AppRoutes {
-  static const String login = "/login";
+class AppRouter {
+  static final GoRouter router = GoRouter(
+    initialLocation: '/splash',
+    routes: [
+      // GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
 
-  static const String forgotPassword = "/forgotPassword";
+      // GoRoute(
+      //   path: '/register',
+      //   builder: (context, state) => const Register_Screen(),
+      // ),
 
-  static const String verifyEmail = "/verifyEmail";
+      // GoRoute(
+      //   path: '/edit-profile',
+      //   builder: (context, state) => const EditProfileScreen(),
+      // ),
 
-  static const String createNewPassword = "/createNewPassword";
+      // ShellRoute(
+      //   builder: (context, state, child) {
+      //     return MainScreen(child: child);
+      //   },
+      //   routes: [
+      //     GoRoute(
+      //       path: '/home',
+      //       builder: (context, state) => HomeScreen(),
+      //       routes: [
+      //         GoRoute(
+      //           path: 'popular',
+      //           builder: (context, state) => const PopularScreen(),
+      //         ),
+      //       ],
+      //     ),
 
-  static const String passwordChanged = "/passwordChanged";
+      //     GoRoute(
+      //       path: '/explore',
+      //       builder: (context, state) => const ExploreScreen(),
+      //     ),
 
-  static const String splash = "/splash";
+      //     GoRoute(
+      //       path: '/favorite',
+      //       builder: (context, state) => const FavoriteScreen(),
+      //     ),
 
-  static const String onboarding = "/onboarding";
+      //     GoRoute(
+      //       path: '/my-booking',
+      //       builder: (context, state) => const MyBookingScreen(),
+      //     ),
 
-  static const chooseLocation = "/chooseLocation";
+      //     GoRoute(
+      //       path: '/profile',
+      //       builder: (context, state) => const ProfileScreen(),
+      //     ),
+      //   ],
+      // ),
 
-  static const permissionLocation = "/permissionLocation";
+      // GoRoute(
+      //   path: '/notification',
+      //   builder: (context, state) => const NotificationScreen(),
+      // ),
 
-  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case login:
-        return MaterialPageRoute(builder: (_) => const Login());
+      // GoRoute(
+      //   path: '/chat',
+      //   builder: (context, state) => const ListChatScreen(),
+      // ),
 
-      case forgotPassword:
-        return MaterialPageRoute(builder: (_) => const ForgotPassword());
+      // GoRoute(
+      //   path: '/search',
+      //   builder: (context, state) => const SearchScreen(),
+      // ),
 
-      case verifyEmail:
-        return MaterialPageRoute(builder: (_) => const VerifyEmail());
+      // GoRoute(
+      //   path: '/filtter',
+      //   builder: (context, state) => const FiltterScreen(),
+      // ),
 
-      case createNewPassword:
-        return MaterialPageRoute(builder: (_) => const CreateNewPassword());
+      // GoRoute(
+      //   path: '/details',
+      //   builder: (context, state) =>
+      //       DetailsScreen(estate: state.extra as EstateModel),
+      // ),
+      GoRoute(
+        path: '/splash',
+        builder: (context, state) => const SplashScreen(),
+      ),
 
-      case passwordChanged:
-        return MaterialPageRoute(builder: (_) => const PasswordChanged());
+      GoRoute(
+        path: '/onboarding',
+        builder: (context, state) => const OnboardingScreen(),
+      ),
 
-      case splash:
-        return MaterialPageRoute(builder: (_) => const SplashScreen());
+      GoRoute(
+        path: '/forgotPassword',
+        builder: (context, state) => const ForgotPassword(),
+      ),
 
-      case onboarding:
-        return MaterialPageRoute(builder: (_) => const OnboardingScreen());
+      GoRoute(
+        path: '/verifyEmail',
+        builder: (context, state) => const VerifyEmail(),
+      ),
 
-      case AppRoutes.permissionLocation:
-        return MaterialPageRoute(
-          builder: (_) => const LocationPermissionScreen(),
-        );
+      GoRoute(
+        path: '/createNewPassword',
+        builder: (context, state) => const CreateNewPassword(),
+      ),
 
-      case AppRoutes.chooseLocation:
-        return MaterialPageRoute(builder: (_) => const ChooseLocationScreen());
+      GoRoute(
+        path: '/passwordChanged',
+        builder: (context, state) => const PasswordChanged(),
+      ),
 
-      //case login:
-      //      return MaterialPageRoute(builder: (_) => const Login());
-    }
+      GoRoute(
+        path: '/permissionLocation',
+        builder: (context, state) => const LocationPermissionScreen(),
+      ),
 
-    return null;
-  }
+      GoRoute(
+        path: '/chooseLocation',
+        builder: (context, state) => const ChooseLocationScreen(),
+      ),
+
+      /*GoRoute(
+        path: '/searchEmpty',
+        builder: (context, state) => const SearchEmptyScreen(),
+      ),*/
+      /*GoRoute(
+        path: '/writeReview',
+        builder: (context, state) => const WriteReviewScreen(),
+      ),*/
+      /*GoRoute(
+        path: '/uploadPhoto',
+        builder: (context, state) => const UploadPhotoScreen(),
+      ),*/
+
+      /*GoRoute(
+        path: '/notificationEmpty',
+        builder: (context, state) => const NotificationEmptyScreen(),
+      ),*/
+
+      /*GoRoute(
+        path: '/reserve',
+        builder: (context, state) => const ReserveScreen(),
+      ),*/
+
+      /*GoRoute(
+        path: '/reserveData',
+        builder: (context, state) => const ReserveDataScreen(),
+      ),*/
+
+      /*GoRoute(
+        path: '/addNewCard',
+        builder: (context, state) => const AddNewCardScreen(),
+      ),*/
+
+      /*GoRoute(
+        path: '/reservePay',
+        builder: (context, state) => const ReservePayScreen(),
+      ),*/
+
+      /*GoRoute(
+        path: '/myServeUNComplete',
+        builder: (context, state) => const MyServeUnCompleteScreen(),
+      ),*/
+
+      /*GoRoute(
+        path: '/myServeComplete',
+        builder: (context, state) => const MyServeCompleteScreen(),
+      ),*/
+
+      /*GoRoute(
+        path: '/myServeUNCancel',
+        builder: (context, state) => const MyServeUNCancelScreen(),
+      ),*/
+
+      /*GoRoute(
+        path: '/myServeEmpty',
+        builder: (context, state) => const MyServeEmptyScreen(),
+      ),*/
+    ],
+  );
 }

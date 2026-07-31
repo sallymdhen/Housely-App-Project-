@@ -17,12 +17,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
 
       builder: (_, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.splash,
-
-          onGenerateRoute: AppRoutes.onGenerateRoute,
-        );
+        return MaterialApp(debugShowCheckedModeBanner: false);
       },
     );
   }

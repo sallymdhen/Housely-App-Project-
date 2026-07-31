@@ -5,6 +5,7 @@ import 'package:flutter_application_team2/feature/onboarding/model/onboarding_mo
 import 'package:flutter_application_team2/feature/onboarding/presentation/widget/onboarding_indicator.dart';
 import 'package:flutter_application_team2/feature/onboarding/presentation/widget/onboarding_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -37,7 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      Navigator.pushReplacementNamed(context, AppRoutes.permissionLocation);
+      context.go('/permissionLocation');
     }
   }
 
