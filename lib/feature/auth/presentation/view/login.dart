@@ -1,13 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_team2/core/constant/app_color.dart';
 import 'package:flutter_application_team2/core/constant/app_fonts.dart';
-import 'package:flutter_application_team2/feature/auth/presentation/view/Register.dart';
-
-import '../../../../core/constant/app_color.dart';
-import '../../../../core/constant/app_text_style.dart';
-import '../../../../core/route/app_router.dart';
-import '../../data/user_model.dart';
-import '../widget/custom_field.dart';
+import 'package:flutter_application_team2/core/constant/app_text_style.dart';
+import 'package:flutter_application_team2/feature/auth/data/user_model.dart';
+import 'package:flutter_application_team2/feature/auth/presentation/widget/custom_field.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -38,25 +36,20 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 48),
-                // Padding(
-                //   padding: const EdgeInsets.only(bottom: 24),
-                //   child: InkWell(
-                //     onTap: () {
-                //       Navigator.pop(context);
-                //     },
-                //     child: const Icon(Icons.arrow_back, color: Colors.black),
-                //   ),
-                // ),
+                const SizedBox(height: 48),
+
                 Text(
                   'Welcome Back !',
                   style: AppTextStyle.welcomeBackTextStyle,
                 ),
+
                 const SizedBox(height: 8),
+
                 Text(
                   'Sign in with your email and password\nor social media to continue',
                   style: AppTextStyle.descriptionTextStyle,
                 ),
+
                 const SizedBox(height: 32),
 
                 CustomTextFormField(
@@ -71,6 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     final emailRegex = RegExp(
                       r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
                     );
+
                     if (!emailRegex.hasMatch(value.trim())) {
                       return 'Email is not correct';
                     }
@@ -78,6 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                 ),
+
                 const SizedBox(height: 20),
 
                 CustomTextFormField(
@@ -96,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
                     }
+
                     if (value.length < 8) {
                       return 'The password must be at least 8 characters long.';
                     }
@@ -103,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                 ),
+
                 const SizedBox(height: 16),
 
                 Row(
@@ -137,6 +134,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                      onPressed: () {
+                        context.push('/forgotPassword');
+                        // print("انتقال الى واجهة سهام");
+                      },
                       child: Text(
                         'Forgot password ?',
                         style: TextStyle(
@@ -144,12 +145,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontSize: 14,
                         ),
                       ),
-                      onPressed: () {
-                        print("انتقال الى واجهة سهام (chang password)");
-                      },
                     ),
                   ],
                 ),
+
                 const SizedBox(height: 32),
 
                 CustomPrimaryButton(
@@ -158,18 +157,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (_formKey.currentState!.validate()) {
                       bool isUserValid = await _loginData.loginUserLocal();
 
-                      if (isUserValid) {
-                        if (!mounted) return;
+                      if (!mounted) return;
 
+                      if (isUserValid) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Login successful!')),
                         );
-                        Navigator.pushReplacementNamed(
-                          context,
-                          AppRoutes.profile,
-                        );
+                        FocusScope.of(context).unfocus();
+                        await Future.delayed(const Duration(seconds: 1));
+                        context.go('/permissionLocation');
                       } else {
-                        if (!mounted) return;
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
@@ -181,6 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   },
                 ),
+
                 const SizedBox(height: 24),
 
                 Center(
@@ -194,16 +192,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 24),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SocialButton(iconPath: 'assets/icons/facebook.png'),
-                    const SizedBox(width: 16),
-                    const SocialButton(iconPath: 'assets/icons/google.png'),
+                  children: const [
+                    SocialButton(iconPath: 'assets/icons/facebook.png'),
+                    SizedBox(width: 16),
+                    SocialButton(iconPath: 'assets/icons/google.png'),
                   ],
                 ),
+
                 const SizedBox(height: 32),
 
                 Center(
@@ -224,18 +224,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Register_Screen(),
-                                ),
-                              );
+                              context.go('/register');
                             },
                         ),
                       ],
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 24),
               ],
             ),

@@ -127,7 +127,7 @@ class SocialButton extends StatelessWidget {
       height: 46,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: AppColor.facebookColor,
+        color: AppColor.dividerColor,
       ),
       child: Center(
         child: fallbackIcon != null

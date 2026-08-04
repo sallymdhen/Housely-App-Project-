@@ -35,12 +35,8 @@ class LoginData {
 
       if (emailController.text.trim() == savedEmail &&
           passwordController.text.trim() == savedPassword) {
-        // حفظ حالة الجلسة عند تسجيل الدخول
-        if (rememberMe) {
-          await prefs.setBool('is_logged_in', true);
-        } else {
-          await prefs.setBool('is_logged_in', false);
-        }
+        await prefs.setBool('remember_me', rememberMe);
+        await prefs.setBool('is_logged_in', rememberMe);
 
         return true;
       } else {

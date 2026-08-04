@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_team2/feature/auth/presentation/view/login.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constant/app_color.dart';
 import '../../../../core/constant/app_fonts.dart';
@@ -9,7 +9,7 @@ import '../../data/user_model.dart';
 import '../widget/custom_field.dart';
 
 class Register_Screen extends StatefulWidget {
-  const Register_Screen({super.key});
+  Register_Screen({super.key});
 
   @override
   State<Register_Screen> createState() => _Register_ScreenState();
@@ -18,7 +18,7 @@ class Register_Screen extends StatefulWidget {
 class _Register_ScreenState extends State<Register_Screen> {
   final RegisterData _registerData = RegisterData();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool _agreeToTerms = false;
+  bool agreeToTerms = false;
 
   @override
   void dispose() {
@@ -34,29 +34,21 @@ class _Register_ScreenState extends State<Register_Screen> {
         body: Form(
           key: _formKey,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24.0),
+            padding: EdgeInsets.all(24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Padding(
-                //   padding: const EdgeInsets.only(bottom: 24),
-                //   child: InkWell(
-                //     onTap: () {
-                //       Navigator.pop(context);
-                //     },
-                //     child: const Icon(Icons.arrow_back, color: Colors.black),
-                //   ),
-                // ),
                 Text(
                   'Register Account',
                   style: AppTextStyle.welcomeBackTextStyle,
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
                 Text(
                   'Sign in with your email and password\nor social media to continue',
                   style: AppTextStyle.descriptionTextStyle,
                 ),
-                const SizedBox(height: 32),
+                SizedBox(height: 32),
+
                 CustomTextFormField(
                   label: 'Email',
                   hintText: 'brooklynsim@gm | |',
@@ -74,7 +66,9 @@ class _Register_ScreenState extends State<Register_Screen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 20),
+
+                SizedBox(height: 20),
+
                 CustomTextFormField(
                   label: 'Username',
                   hintText: 'Username',
@@ -86,7 +80,9 @@ class _Register_ScreenState extends State<Register_Screen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 20),
+
+                SizedBox(height: 20),
+
                 CustomTextFormField(
                   label: 'Password',
                   hintText: 'Password',
@@ -109,26 +105,28 @@ class _Register_ScreenState extends State<Register_Screen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
+
+                SizedBox(height: 16),
+
                 Row(
                   children: [
                     SizedBox(
                       height: 24,
                       width: 24,
                       child: Checkbox(
-                        value: _agreeToTerms,
+                        value: agreeToTerms,
                         activeColor: AppColor.primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4),
                         ),
                         onChanged: (value) {
                           setState(() {
-                            _agreeToTerms = value ?? false;
+                            agreeToTerms = value ?? false;
                           });
                         },
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    SizedBox(width: 12),
                     RichText(
                       text: TextSpan(
                         style: TextStyle(
@@ -136,7 +134,7 @@ class _Register_ScreenState extends State<Register_Screen> {
                           fontSize: 14,
                         ),
                         children: [
-                          const TextSpan(text: 'Agree with '),
+                          TextSpan(text: 'Agree with '),
                           TextSpan(
                             text: 'terms',
                             style: TextStyle(
@@ -144,7 +142,7 @@ class _Register_ScreenState extends State<Register_Screen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const TextSpan(text: ' and '),
+                          TextSpan(text: ' and '),
                           TextSpan(
                             text: 'privacy',
                             style: TextStyle(
@@ -157,14 +155,16 @@ class _Register_ScreenState extends State<Register_Screen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 32),
+
+                SizedBox(height: 32),
+
                 CustomPrimaryButton(
                   text: 'Sign up',
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      if (!_agreeToTerms) {
+                      if (!agreeToTerms) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
+                          SnackBar(
                             content: Text(
                               'Please agree to the terms and privacy policy',
                             ),
@@ -172,21 +172,22 @@ class _Register_ScreenState extends State<Register_Screen> {
                         );
                         return;
                       }
+
                       await _registerData.registerUserLocal();
+
                       if (!mounted) return;
+
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Registration Successful!'),
-                        ),
+                        SnackBar(content: Text('Registration Successful!')),
                       );
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                      );
+
+                      context.go('/login');
                     }
                   },
                 ),
-                const SizedBox(height: 24),
+
+                SizedBox(height: 24),
+
                 Center(
                   child: Text(
                     'Or',
@@ -198,16 +199,20 @@ class _Register_ScreenState extends State<Register_Screen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 24),
+
+                SizedBox(height: 24),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SocialButton(iconPath: 'assets/icons/facebook.png'),
-                    const SizedBox(width: 16),
-                    const SocialButton(iconPath: 'assets/icons/google.png'),
+                    SocialButton(iconPath: 'assets/icons/facebook.png'),
+                    SizedBox(width: 16),
+                    SocialButton(iconPath: 'assets/icons/google.png'),
                   ],
                 ),
+
                 const SizedBox(height: 32),
+
                 Center(
                   child: RichText(
                     text: TextSpan(
@@ -226,18 +231,14 @@ class _Register_ScreenState extends State<Register_Screen> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
-                                ),
-                              );
+                              context.go('/');
                             },
                         ),
                       ],
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 24),
               ],
             ),
