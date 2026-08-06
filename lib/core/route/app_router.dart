@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/feature/location/presentation/view/choose_location_screen.dart';
 import 'package:flutter_application_team2/feature/location/presentation/view/location_permission_screen.dart';
+import 'package:flutter_application_team2/feature/notification/presentation/view/empty_notification_screen.dart';
+import 'package:flutter_application_team2/feature/notification/presentation/view/notification_screen.dart';
 import 'package:flutter_application_team2/feature/onboarding/presentation/view/onboarding_screen.dart';
+import 'package:flutter_application_team2/feature/review/view/write_review_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../feature/auth/presentation/view/create_new_password.dart';
 import '../../feature/auth/presentation/view/forgot_password.dart';
-import '../../feature/auth/presentation/view/login.dart';
 import '../../feature/auth/presentation/view/password_changed.dart';
 import '../../feature/auth/presentation/view/verify_email.dart';
 import 'package:flutter_application_team2/feature/splash/presentation/view/splash_screen.dart';
@@ -65,11 +66,10 @@ class AppRouter {
       //     ),
       //   ],
       // ),
-
-      // GoRoute(
-      //   path: '/notification',
-      //   builder: (context, state) => const NotificationScreen(),
-      // ),
+      GoRoute(
+        path: '/notification',
+        builder: (context, state) => const NotificationScreen(),
+      ),
 
       // GoRoute(
       //   path: '/chat',
@@ -135,19 +135,19 @@ class AppRouter {
         path: '/searchEmpty',
         builder: (context, state) => const SearchEmptyScreen(),
       ),*/
-      /*GoRoute(
+      GoRoute(
         path: '/writeReview',
         builder: (context, state) => const WriteReviewScreen(),
-      ),*/
+      ),
+
       /*GoRoute(
         path: '/uploadPhoto',
         builder: (context, state) => const UploadPhotoScreen(),
       ),*/
-
-      /*GoRoute(
+      GoRoute(
         path: '/notificationEmpty',
-        builder: (context, state) => const NotificationEmptyScreen(),
-      ),*/
+        builder: (context, state) => const EmptyNotificationScreen(),
+      ),
 
       /*GoRoute(
         path: '/reserve',

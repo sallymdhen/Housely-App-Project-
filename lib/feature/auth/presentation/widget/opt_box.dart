@@ -18,24 +18,24 @@ class OtpBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 60.w,
-      height: 60.h,
+      width: 20,
+      height: 20,
       child: TextField(
         controller: controller,
         autofocus: autoFocus,
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         maxLength: 1,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: InputDecoration(
           counterText: "",
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.r),
+            borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(color: Colors.grey.shade300, width: 1.2),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.r),
+            borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(color: AppColor.primaryColor, width: 2),
           ),
         ),

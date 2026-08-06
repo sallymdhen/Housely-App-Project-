@@ -24,7 +24,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       );
       return;
     }
-    context.go('/verifyEmail');
+    context.push('/verifyEmail');
     // Navigator.pushNamed(context, AppRoutes.verifyEmail);
   }
 
@@ -91,11 +91,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         },
                       ),
 
-                      const Spacer(),
+                      SizedBox(height: 265),
 
                       BottomButton(title: "Continue", onPressed: _continue),
 
-                      SizedBox(height: 30.h),
+                      //SizedBox(height: 30.h),
                     ],
                   ),
                 ),

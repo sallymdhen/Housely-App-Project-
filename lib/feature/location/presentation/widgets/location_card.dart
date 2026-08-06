@@ -32,7 +32,7 @@ class LocationCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 24.r,
-                backgroundColor: AppColor.primaryColor.withOpacity(.15),
+                backgroundColor: AppColor.primaryColor.withValues(alpha: .15),
 
                 child: Icon(Icons.location_on, color: AppColor.primaryColor),
               ),

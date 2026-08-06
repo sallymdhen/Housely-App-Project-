@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_team2/core/route/app_router.dart';
 import 'package:flutter_application_team2/core/widgets/bottom_button.dart';
 import 'package:flutter_application_team2/feature/auth/presentation/widget/auth_app_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -97,7 +96,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
       return;
     }
 
-    context.go('/createNewPassword');
+    context.push('/createNewPassword');
   }
 
   @override
@@ -140,7 +139,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     SizedBox(height: 10.h),
 
                     Text(
-                      "Please enter 4 digit verification code",
+                      "Please enter 4 digit verification that have been sent to your email address",
                       style: TextStyle(color: Colors.grey, fontSize: 14.sp),
                     ),
 
@@ -185,11 +184,11 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       ),
                     ),
 
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 130),
 
                     BottomButton(title: "Verify", onPressed: _verifyCode),
 
-                    SizedBox(height: 30.h),
+                    //  SizedBox(height: 30),
                   ],
                 ),
               ),

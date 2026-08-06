@@ -23,22 +23,21 @@ class PasswordChanged extends StatelessWidget {
                     vertical: 30.h,
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SizedBox(height: 80.h),
-
+                      SizedBox(height: 170),
                       SizedBox(
-                        width: 220.w,
-                        height: 220.w,
+                        width: 220,
+                        height: 220,
                         child: Image.asset(
                           "assets/icons/Illustration.png",
                           fit: BoxFit.contain,
                         ),
                       ),
 
-                      SizedBox(height: 25.h),
-
+                      SizedBox(height: 5),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
                           children: [
                             Text(
@@ -63,7 +62,7 @@ class PasswordChanged extends StatelessWidget {
                         ),
                       ),
                       // Spacer
-                      const Spacer(flex: 1),
+                      SizedBox(height: 150),
                       BottomButton(
                         title: "Continue",
                         onPressed: () {
@@ -71,7 +70,7 @@ class PasswordChanged extends StatelessWidget {
                         },
                       ),
 
-                      SizedBox(height: 30.h),
+                      SizedBox(height: 30),
                     ],
                   ),
                 ),

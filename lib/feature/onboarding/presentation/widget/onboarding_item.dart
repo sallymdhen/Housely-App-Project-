@@ -12,6 +12,7 @@ class OnboardingItem extends StatelessWidget {
 
   Widget _buildFormattedTitle(String title) {
     List<String> boldWords = [];
+
     if (title.contains('perfect place')) {
       boldWords = ['perfect place'];
     } else if (title.contains('one click')) {
@@ -20,32 +21,65 @@ class OnboardingItem extends StatelessWidget {
       boldWords = ['dream home'];
     }
 
+    if (boldWords.isEmpty) {
+      return Text(
+        title,
+
+        textAlign: TextAlign.center,
+
+        style: AppTextStyle.authTitle.copyWith(
+          fontSize: 24.sp,
+
+          height: 1.25,
+
+          color: Colors.black87,
+
+          fontWeight: FontWeight.w400,
+
+          fontFamily: AppFonts.inter,
+        ),
+      );
+    }
+
     String targetWord = boldWords.first;
+
     int index = title.indexOf(targetWord);
 
     String firstPart = title.substring(0, index);
-    String boldPart = targetWord;
+
+    String boldPart = title.substring(index, index + targetWord.length);
+
     String lastPart = title.substring(index + targetWord.length);
 
     return RichText(
       textAlign: TextAlign.center,
+
       text: TextSpan(
         style: AppTextStyle.authTitle.copyWith(
           fontSize: 24.sp,
+
           height: 1.25,
+
           color: Colors.black87,
+
           fontWeight: FontWeight.w400,
+
           fontFamily: AppFonts.inter,
         ),
+
         children: [
           TextSpan(text: firstPart),
+
           TextSpan(
             text: boldPart,
+
             style: const TextStyle(
               fontWeight: FontWeight.w800,
+
               color: Colors.black,
             ),
           ),
+
           TextSpan(text: lastPart),
         ],
       ),
@@ -54,81 +88,96 @@ class OnboardingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+
+      children: [
+        SizedBox(height: 15),
+
+        SizedBox(
+          height: 280,
+
+          child: Stack(
+            alignment: Alignment.center,
+
+            clipBehavior: Clip.none,
+
             children: [
-              SizedBox(height: 20.h),
+              // الصورة الخلفية (السفلية)
+              Transform.translate(
+                offset: model.isBackgroundRight
+                    ? const Offset(40, 10)
+                    : const Offset(-40, 10),
 
-              SizedBox(
-                height: 280.h,
-                child: Stack(
-                  alignment: Alignment.center,
-                  clipBehavior: Clip.none,
-                  children: [
-                    Positioned(
-                      right: model.isBackgroundRight ? 40.w : null,
-                      left: model.isBackgroundRight ? null : 40.w,
-                      bottom: 12.h,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100.r),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(75),
 
-                        child: Image.asset(
-                          model.backgroundImage,
-                          width: 150.w,
-                          height: 210.h,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    //),
-                    Positioned(
-                      right: model.isBackgroundRight ? null : 40.w,
-                      left: model.isBackgroundRight ? 40.w : null,
-                      top: -20.h,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100.r),
-                        child: Image.asset(
-                          model.foregroundImage,
-                          width: 150.w,
-                          height: 275.h,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  child: Image.asset(
+                    model.backgroundImage,
 
-              SizedBox(height: 30.h),
+                    width: 145,
 
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: _buildFormattedTitle(model.title),
-              ),
+                    height: 220,
 
-              SizedBox(height: 16.h),
-
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
-                child: Text(
-                  model.description,
-                  textAlign: TextAlign.center,
-                  style: AppTextStyle.authSubTitle.copyWith(
-                    fontSize: 13.sp,
-                    height: 1.5,
-                    color: AppColor.greyColor,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
 
-              SizedBox(height: 20.h),
+              // الصورة الأمامية (العلوية)
+              Transform.translate(
+                offset: model.isBackgroundRight
+                    ? const Offset(-40, -20)
+                    : const Offset(40, -20),
+
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(80),
+
+                  child: Image.asset(
+                    model.foregroundImage,
+
+                    width: 145,
+
+                    height: 285,
+
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ],
           ),
-        );
-      },
+        ),
+
+        SizedBox(height: 30),
+
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+
+          child: _buildFormattedTitle(model.title),
+        ),
+
+        SizedBox(height: 20),
+
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+
+          child: Text(
+            model.description,
+
+            textAlign: TextAlign.center,
+
+            style: AppTextStyle.authSubTitle.copyWith(
+              fontSize: 12,
+
+              height: 1.5,
+
+              color: AppColor.greyColor,
+            ),
+          ),
+        ),
+
+        //  SizedBox(height: 10),
+      ],
     );
   }
 }

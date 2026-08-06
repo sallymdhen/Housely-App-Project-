@@ -23,7 +23,7 @@ class BottomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 45.h,
+      height: 50,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -32,14 +32,14 @@ class BottomButton extends StatelessWidget {
           backgroundColor: backgroundColor ?? AppColor.primaryColor,
           foregroundColor: textColor ?? Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.r),
+            borderRadius: BorderRadius.circular(8),
             side: BorderSide(color: borderColor ?? Colors.transparent),
           ),
         ),
         child: Text(
           title,
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 18,
             fontWeight: FontWeight.w500,
             color: textColor ?? Colors.white,
           ),
