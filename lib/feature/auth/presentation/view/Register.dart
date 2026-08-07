@@ -63,7 +63,7 @@ class _Register_ScreenState extends State<Register_Screen> {
                       return 'Email is not correct';
                     }
                     return null;
-                  },
+                  }, width: double.infinity,
                 ),
 
                 const SizedBox(height: 20),
@@ -77,7 +77,7 @@ class _Register_ScreenState extends State<Register_Screen> {
                       return 'Please enter your username';
                     }
                     return null;
-                  },
+                  }, width: double.infinity,
                 ),
 
                 const SizedBox(height: 20),
@@ -102,7 +102,7 @@ class _Register_ScreenState extends State<Register_Screen> {
                       return 'The password must be at least 8 characters long.';
                     }
                     return null;
-                  },
+                  }, width: double.infinity,
                 ),
 
                 const SizedBox(height: 16),

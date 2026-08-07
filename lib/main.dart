@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_team2/core/constant/app_color.dart';
 
 import 'package:flutter_application_team2/core/route/app_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,9 +32,18 @@ class MyApp extends StatelessWidget {
         return MaterialApp.router(
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
-
-
-      
+          theme: ThemeData(
+            scaffoldBackgroundColor: AppColor.whiteColor,
+            
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.white,
+              scrolledUnderElevation: 0,
+              elevation: 0,
+              surfaceTintColor: Colors.white,
+            ),
+          ),
+        );
+      },
     );
-  });
-}}
+  }
+}

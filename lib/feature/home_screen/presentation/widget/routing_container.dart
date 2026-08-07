@@ -22,7 +22,7 @@ class RoutingContainer extends StatelessWidget {
       children: [
         Text(
           "\$$price/month",
-          style: AppTextStyle.NearbyPrice,
+          style: AppTextStyle.NearbyPrice.copyWith(fontWeight: FontWeight.w800),
         ),
 
         const Spacer(),
@@ -35,18 +35,18 @@ class RoutingContainer extends StatelessWidget {
             color: AppColor.warningWhite,
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 3),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(
                   Icons.star,
-                  size: 14,
+                  size: 13,
                   color: Colors.amber,
                 ),
                 Text(
                   route.toString(),
-                  style: AppTextStyle.NearbyRouting,
+                  style: AppTextStyle.NearbyRouting.copyWith(fontWeight: FontWeight.w900),
                 ),
               ],
             ),

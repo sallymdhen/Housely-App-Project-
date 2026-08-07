@@ -15,12 +15,12 @@ class AppTextStyle {
     fontFamily: AppFonts.inter,
     fontWeight: FontWeight.w500,
     fontSize: 12,
-    color: AppColor.greyColor,
+    color: AppColor.lightgrey,
   );
 
   static final TextStyle locationName = TextStyle(
     fontFamily: AppFonts.inter,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.bold,
     fontSize: 16,
     color: AppColor.blackColor,
   );
@@ -49,7 +49,7 @@ class AppTextStyle {
   static final TextStyle Nearby = TextStyle(
     fontFamily: AppFonts.inter,
     fontWeight: FontWeight.w500,
-    fontSize: 12,
+    fontSize: 13,
     color: AppColor.primaryColor,
   );
 

@@ -13,7 +13,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
     int currentIndex = 0;
 
-    if (location.startsWith('/explore')) {
+    if (location.startsWith('/chooseLocation')) {
       currentIndex = 1;
     } else if (location.startsWith('/favorite')) {
       currentIndex = 2;
@@ -48,7 +48,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
     final List<String> titles = [
       "Home",
-      "Explore",
+       "explore",
       "Favorite",
       "My Booking",
       "Profile",
@@ -78,45 +78,55 @@ class CustomBottomNavBar extends StatelessWidget {
         children: List.generate(normalIcons.length, (index) {
           final bool selected = currentIndex == index;
 
-          return Expanded(
-            child: InkWell(
-              onTap: () {
-                debugPrint("Go to: ${routes[index]}");
-                context.go(routes[index]);
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
-                    width: selected ? 24 : 0,
-                    height: 3,
-                    decoration: BoxDecoration(
-                      color: AppColor.primaryColor,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Image.asset(
-                    selected ? selectedIcons[index] : normalIcons[index],
-                    width: 24,
-                    height: 24,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    titles[index],
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-                      color: selected
-                          ? AppColor.primaryColor
-                          : AppColor.greyColor,
-                    ),
-                  ),
-                ],
+         return Expanded(
+  child: InkWell(
+    onTap: () {
+      context.go(routes[index]);
+    },
+    child: Stack(
+      children: [
+        if (selected)
+          Align(
+            alignment: Alignment.topCenter,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              width: 29,
+              height: 3,
+              decoration: BoxDecoration(
+                color: AppColor.primaryColor,
+                borderRadius: BorderRadius.circular(20),
               ),
             ),
-          );
+          ),
+
+        Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                selected ? selectedIcons[index] : normalIcons[index],
+                width: 24,
+                height: 24,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                titles[index],
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight:
+                      selected ? FontWeight.w600 : FontWeight.w400,
+                  color: selected
+                      ? AppColor.primaryColor
+                      : AppColor.greyColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  ),
+);
         }),
       ),
     );

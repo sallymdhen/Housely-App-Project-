@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_team2/core/constant/app_color.dart';
 import 'package:flutter_application_team2/core/constant/app_text_style.dart';
 
@@ -10,6 +11,10 @@ class CustomTextFormField extends StatelessWidget {
   final bool isHidden;
   final VoidCallback? onSuffixTap;
   final String? Function(String?)? validator;
+  final double width;
+  final TextInputType? keyboardType;
+final int? maxLength;
+final List<TextInputFormatter>? inputFormatters;
 
   const CustomTextFormField({
     Key? key,
@@ -19,7 +24,10 @@ class CustomTextFormField extends StatelessWidget {
     this.isPassword = false,
     this.isHidden = false,
     this.onSuffixTap,
-    this.validator,
+    this.validator, required this.width,
+     this.keyboardType,
+  this.maxLength,
+  this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -29,48 +37,50 @@ class CustomTextFormField extends StatelessWidget {
       children: [
         Text(label, style: AppTextStyle.labelTextStyle),
         const SizedBox(height: 4),
-        TextFormField(
-          controller: controller,
-          obscureText: isPassword && isHidden,
-          validator: validator,
-          decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: TextStyle(color: AppColor.blackColor, fontSize: 14),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 17,
+        SizedBox(width: width,
+          child: TextFormField(
+            controller: controller,
+            obscureText: isPassword && isHidden,
+            validator: validator,
+            decoration: InputDecoration(
+              hintText: hintText,
+              hintStyle: TextStyle(color: AppColor.blackColor, fontSize: 14),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 17,
+              ),
+          
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: AppColor.greyColor, width: 1),
+              ),
+          
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: AppColor.primaryColor, width: 2),
+              ),
+          
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: AppColor.redColor, width: 1.5),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: AppColor.redColor, width: 2),
+              ),
+          
+              suffixIcon: isPassword
+                  ? IconButton(
+                      icon: Icon(
+                        isHidden
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: AppColor.greyColor,
+                      ),
+                      onPressed: onSuffixTap,
+                    )
+                  : null,
             ),
-
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColor.greyColor, width: 1),
-            ),
-
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColor.primaryColor, width: 2),
-            ),
-
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColor.redColor, width: 1.5),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColor.redColor, width: 2),
-            ),
-
-            suffixIcon: isPassword
-                ? IconButton(
-                    icon: Icon(
-                      isHidden
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                      color: AppColor.greyColor,
-                    ),
-                    onPressed: onSuffixTap,
-                  )
-                : null,
           ),
         ),
       ],

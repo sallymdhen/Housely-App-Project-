@@ -18,12 +18,15 @@ class PuplicPlacesContainer extends StatelessWidget {
         ),
         child:
        Padding(
-         padding: const EdgeInsets.all(4),
+         padding: const EdgeInsets.symmetric(horizontal:2 ,vertical: 5),
          child: Row(mainAxisSize: MainAxisSize.min,
           children: [
           Image.asset(icone,width: 36,height: 36,),
           SizedBox(width: 1,),
-          Text(namePlace,style: TextStyle(color: AppColor.blackColor),),
+          Padding(
+            padding: const EdgeInsets.only(right: 6),
+            child: Text(namePlace,style: TextStyle(color: AppColor.blackColor),),
+          ),
           
                      
          ],),

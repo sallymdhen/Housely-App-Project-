@@ -1,6 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/feature/auth/presentation/view/Register.dart';
 import 'package:flutter_application_team2/feature/auth/presentation/view/login.dart';
+import 'package:flutter_application_team2/feature/booking_payment/data/card_model.dart';
+import 'package:flutter_application_team2/feature/booking_payment/data/paypal_model.dart';
+import 'package:flutter_application_team2/feature/booking_payment/presentation/view/add_new_card_screen.dart';
+import 'package:flutter_application_team2/feature/booking_payment/presentation/view/paypal_screen.dart';
+import 'package:flutter_application_team2/feature/booking_payment/presentation/view/reserve_screen.dart';
+import 'package:flutter_application_team2/feature/booking_payment/presentation/widgets/calendar_bottom_sheet.dart';
+import 'package:flutter_application_team2/feature/booking_payment/presentation/widgets/succes_pay_sheet.dart';
 import 'package:flutter_application_team2/feature/details_screen/presentation/view/details_screen.dart';
 import 'package:flutter_application_team2/feature/explore_screen/presentation/view/explore_screen.dart';
 import 'package:flutter_application_team2/feature/favorite_screen/presentation/view/favorite_screen.dart';
@@ -16,11 +22,9 @@ import 'package:flutter_application_team2/feature/profile_screen/presentatoin/vi
 import 'package:flutter_application_team2/feature/profile_screen/presentatoin/view/profile_screen.dart';
 import 'package:flutter_application_team2/feature/search_screen/presentation/view/search_screen.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:flutter_application_team2/feature/location/presentation/view/choose_location_screen.dart';
 import 'package:flutter_application_team2/feature/location/presentation/view/location_permission_screen.dart';
 import 'package:flutter_application_team2/feature/onboarding/presentation/view/onboarding_screen.dart';
-
 import '../../feature/auth/presentation/view/create_new_password.dart';
 import '../../feature/auth/presentation/view/forgot_password.dart';
 import '../../feature/auth/presentation/view/login.dart';
@@ -32,7 +36,7 @@ import 'package:flutter_application_team2/feature/splash/presentation/view/splas
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation:'/splash',
+    initialLocation:'/login',
     routes: [
      
       GoRoute(
@@ -68,10 +72,10 @@ class AppRouter {
             ],
           ),
 
-          GoRoute(
+        /*  GoRoute(
             path: '/explore',
-            builder: (context, state) => const ExploreScreen(),
-          ),
+            builder: (context, state) => const ChooseLocationScreen(),
+          ),*/
 
           GoRoute(
             path: '/favorite',
@@ -153,7 +157,7 @@ GoRoute(
 ),
 
 GoRoute(
-  path: '/chooseLocation',
+  path: '/explore',
   builder: (context, state) => const ChooseLocationScreen(),
 ),
  /*GoRoute(
@@ -174,28 +178,48 @@ GoRoute(
         builder: (context, state) => const NotificationEmptyScreen(),
       ),*/
 
-/*GoRoute(
-        path: '/reserve',
-        builder: (context, state) => const ReserveScreen(),
-      ),*/      
+  
 
+GoRoute(
+  path: '/reserve',
+  builder: (context, state) {
+    final estate = state.extra as EstateModel;
 
-      /*GoRoute(
+    return ReserveScreen(
+      estate: estate,
+    );
+  },
+),
+
+      GoRoute(
         path: '/reserveData',
-        builder: (context, state) => const ReserveDataScreen(),
-      ),*/      
+        builder: (context, state) => const CalendarBottomSheet(),
+      ),      
 
 
-      /*GoRoute(
-        path: '/addNewCard',
-        builder: (context, state) => const AddNewCardScreen(),
-      ),*/      
+      GoRoute(
+  path: '/addNewCard',
+  builder: (context, state) {
+    return AddNewCardScreen(
+      card: state.extra as CardModel?,
+    );
+  },
+),     
+
+GoRoute(
+  path: '/paypal',
+  builder: (context, state) {
+    return PaypalScreen(
+      paypal: state.extra as PaypalModel?,
+    );
+  },
+),
 
 
-      /*GoRoute(
-        path: '/reservePay',
-        builder: (context, state) => const ReservePayScreen(),
-      ),*/  
+      GoRoute(
+        path: '/reserveSucces',
+        builder: (context, state) => const SuccesPaySheet(),
+      ),  
 
       /*GoRoute(
         path: '/myServeUNComplete',

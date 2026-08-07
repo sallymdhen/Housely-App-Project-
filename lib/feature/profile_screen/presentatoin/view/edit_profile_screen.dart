@@ -119,7 +119,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           return 'Please enter your full name';
                         }
                         return null;
-                      },
+                      }, width: double.infinity,
                     ),
                     const SizedBox(height: 20),
                     CustomTextFormField(
@@ -131,7 +131,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           return 'Please enter your username';
                         }
                         return null;
-                      },
+                      }, width: double.infinity,
                     ),
                     const SizedBox(height: 20),
                     CustomTextFormField(
@@ -151,7 +151,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
 
                         return null;
-                      },
+                      }, width: double.infinity,
                     ),
                     const SizedBox(height: 20),
                     DateOfBirthField(

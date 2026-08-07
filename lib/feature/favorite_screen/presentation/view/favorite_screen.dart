@@ -18,7 +18,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("favorite", style: AppTextStyle.locationName),
+        title: Text("favorite", style: AppTextStyle.locationName..copyWith(fontWeight: FontWeight.w800)),
         leading: Icon(Icons.arrow_back),
       ),
 
@@ -44,7 +44,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         },
                       ),
                       const SizedBox(height: 12),
-                      Container(height: 1, color: AppColor.greyColor),
+                      Container(height: 1, color: AppColor.lightgrey),
                       const SizedBox(height: 12),
                     ],
                   );

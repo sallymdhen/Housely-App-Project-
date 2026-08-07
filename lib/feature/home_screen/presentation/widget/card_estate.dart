@@ -38,23 +38,25 @@ class _CardEstateState extends State<CardEstate> {
                     horizontal: 4,
                     vertical: 4,
                   ),
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: '\$${widget.estate.price}',
-                          style: AppTextStyle.priceEstate,
-                        ),
-                        TextSpan(
-                          text: '/month',
-                          style: TextStyle(
-                            fontFamily: AppFonts.inter,
-                            color: AppColor.greyColor,
-                            fontSize: 10,
-                            fontWeight: FontWeight(400),
+                  child: Center(
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '\$${widget.estate.price}',
+                            style: AppTextStyle.priceEstate,
                           ),
-                        ),
-                      ],
+                          TextSpan(
+                            text: '/month',
+                            style: TextStyle(
+                              fontFamily: AppFonts.inter,
+                              color: AppColor.greyColor,
+                              fontSize: 10,
+                              fontWeight: FontWeight(400),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -77,11 +79,11 @@ class _CardEstateState extends State<CardEstate> {
               bottom: 24,
               child: Row(
                 children: [
-                  Icon(Icons.place, color: AppColor.greyColor, size: 16),
+                  Icon(Icons.place, color: AppColor.lightgrey, size: 16),
                   SizedBox(width: 1),
                   Text(
                     widget.estate.location ?? '',
-                    style: AppTextStyle.location,
+                    style: AppTextStyle.location.copyWith(color: AppColor.lightgrey),
                   ),
                 ],
               ),
@@ -108,11 +110,10 @@ class _CardEstateState extends State<CardEstate> {
                     });
                   },
 
-                  icon: Icon(
-                    Icons.favorite,
-                    size: 19,
-                    color: isFavourite ? AppColor.redColor : AppColor.greyColor,
-                  ),
+                 icon: isFavourite
+    ? Image.asset('assets/icons/fav_estate.png',height:16 ,width:16 ,)
+    :
+    Image.asset('assets/icons/UnFav_estete.png',height:16 ,width:16 ,)
                 ),
               ),
             ),

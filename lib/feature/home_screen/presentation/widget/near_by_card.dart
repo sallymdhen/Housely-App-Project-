@@ -64,7 +64,7 @@ class _NearByCardState extends State<NearByCard> {
                     children: [
                       Text(
                         widget.estate.name ?? '',
-                        style: AppTextStyle.NearbyName,
+                        style: AppTextStyle.NearbyName.copyWith(fontWeight: FontWeight.bold),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -85,13 +85,10 @@ class _NearByCardState extends State<NearByCard> {
                             widget.onFavoriteChanged?.call();
                           },
 
-                          child: Icon(
-                            Icons.favorite,
-                            size: 25,
-                            color: isFavourite
-                                ? AppColor.redColor
-                                : AppColor.greyColor,
-                          ),
+                          child:isFavourite
+    ? Image.asset('assets/icons/fav_estate.png',height:24 ,width:24 ,)
+    :
+    Image.asset('assets/icons/UnFav_estete.png',height:24 ,width:24 ,)
                         ),
                     ],
                   ),
@@ -117,8 +114,8 @@ class _NearByCardState extends State<NearByCard> {
                   RoutingContainer(
                     price: widget.estate.price ?? 0,
                     route: widget.estate.route ?? 0,
-                    width: 39,
-                    height: 18,
+                    width: 43,
+                    height: 24,
                   ),
                 ],
               ),

@@ -40,7 +40,10 @@ class _TopLocationCardState extends State<TopLocationCard> {
           children: [
           Image.asset(widget.topLocation.image??'',width: 36,height: 36,),
           SizedBox(width: 6,),
-          Text(widget.topLocation.location??'',style: TextStyle(color: click?AppColor.whiteColor:AppColor.greyColor),),
+          Padding(
+            padding: const EdgeInsets.only(right: 2),
+            child: Text(widget.topLocation.location??'',style: TextStyle(color: click?AppColor.whiteColor:AppColor.greyColor,fontSize: 13),),
+          ),
           
           
                

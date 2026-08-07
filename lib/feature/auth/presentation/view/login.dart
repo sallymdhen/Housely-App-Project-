@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
 
                     return null;
-                  },
+                  }, width: double.infinity,
                 ),
 
                 const SizedBox(height: 20),
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
 
                     return null;
-                  },
+                  }, width: double.infinity,
                 ),
 
                 const SizedBox(height: 16),

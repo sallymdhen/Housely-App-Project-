@@ -17,7 +17,7 @@ final popularList = EstateData.estates.skip(2).toList();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title:  Text("Popular",style:AppTextStyle.locationName,),
+        title:  Text("Popular",style:AppTextStyle.locationName.copyWith(fontWeight: FontWeight.w800),),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(24),
@@ -33,7 +33,7 @@ final popularList = EstateData.estates.skip(2).toList();
               Container(
                 height: 1,
                 width: double.infinity,
-                color: AppColor.greyColor,
+                color: AppColor.lightgrey,
               ),
               const SizedBox(height: 12),
             ],

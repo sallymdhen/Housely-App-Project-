@@ -23,7 +23,7 @@ class BottomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 45.h,
+      height: 54.h,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -39,8 +39,8 @@ class BottomButton extends StatelessWidget {
         child: Text(
           title,
           style: TextStyle(
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
+            fontSize: 19.sp,
+            fontWeight: FontWeight.w400,
             color: textColor ?? Colors.white,
           ),
         ),

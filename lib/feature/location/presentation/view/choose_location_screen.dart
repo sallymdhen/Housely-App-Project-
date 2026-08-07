@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/feature/auth/presentation/widget/auth_app_bar.dart';
+import 'package:flutter_application_team2/feature/location/data/location_data.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoding/geocoding.dart';
+
 
 import '../../../../core/widgets/bottom_button.dart';
 import '../widgets/location_card.dart';
@@ -26,14 +30,27 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
     35.525,
     35.786,
   );
+  LatLng? selectedLocation;
+  BitmapDescriptor? customMarker;
 
   String address = "Jl.Jend.Sudirman, Gowongan, Kec. Jetis, Kota Yogyakarta";
 
   @override
   void initState() {
     super.initState();
+      loadMarker();
     getCurrentLocation();
   }
+  Future<void> loadMarker() async {
+  customMarker = await BitmapDescriptor.asset(
+    const ImageConfiguration(
+      size: Size(64, 64),
+    ),
+    "assets/icons/location_pin.png",
+  );
+
+  setState(() {});
+}
 
   Future<void> getCurrentLocation() async {
    
@@ -73,6 +90,23 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                     target: currentLocation,
                     zoom: 16,
                   ),
+                  onTap: (LatLng location) async {
+  selectedLocation = location;
+
+  List<Placemark> placemarks = await placemarkFromCoordinates(
+    location.latitude,
+    location.longitude,
+  );
+
+  if (placemarks.isNotEmpty) {
+    final place = placemarks.first;
+
+    setState(() {
+      address = place.name ?? place.locality ?? place.country ?? "";
+      selectedLocation = location;
+    });
+  }
+},
 
                   myLocationEnabled: false,
                   myLocationButtonEnabled: false,
@@ -86,7 +120,8 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                     Marker(
                       markerId:
                           const MarkerId("current_location"),
-                      position: currentLocation,
+                     position: selectedLocation ?? currentLocation,
+                    // icon: customMarker ?? BitmapDescriptor.defaultMarker,
                     ),
                   },
                 ),
@@ -104,24 +139,26 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                             AuthAppBar(),
                           ],
                         ),
-
+                    
                         SizedBox(height: 18.h),
-
+                    
                         SearchLocationField(
                           controller: searchController,
                         ),
-
+                    
                         const Spacer(),
-
+                    
                         LocationCard(
                           address: address,
                         ),
-
+                    
                         SizedBox(height: 18.h),
-
+                    
                         BottomButton(
                           title: "Choose location",
                           onPressed: () {
+                            LocationData.selectedAddress = address;
+                            context.go('/home');
                           
                           },
                         ),

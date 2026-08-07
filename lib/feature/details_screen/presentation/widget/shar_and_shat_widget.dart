@@ -15,8 +15,8 @@ class ActionIcon extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 36,
-        height: 36,
+        width: 35,
+        height: 35,
         decoration: BoxDecoration(
           color: const Color(0xff8B5CF6).withOpacity(0.12),
           shape: BoxShape.circle,
@@ -24,8 +24,8 @@ class ActionIcon extends StatelessWidget {
          child: Center(
          child: Image.asset(
       img,
-      width: 24,
-      height: 24,
+      width: 20,
+      height: 20,
       fit: BoxFit.contain,
     ),
       ),

@@ -6,6 +6,7 @@ import 'package:flutter_application_team2/feature/home_screen/data/estate_model.
 import 'package:flutter_application_team2/feature/home_screen/presentation/widget/card_estate.dart';
 import 'package:flutter_application_team2/feature/home_screen/presentation/widget/near_by_card.dart';
 import 'package:flutter_application_team2/feature/home_screen/presentation/widget/top_location_card.dart';
+import 'package:flutter_application_team2/feature/location/data/location_data.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_application_team2/feature/favorite_screen/data/favorite_data.dart';
@@ -66,9 +67,9 @@ class _HomeScreenState extends State<HomeScreen> {
     image: 'assets/image/malang_estate.png' ,
     location: 'Malang'),
 
-   EstateModel(
+   /*EstateModel(
     image: 'assets/image/estate_five.png' ,
-    location: 'Taywan'),
+    location: 'Taywan'),*/
      
     
   ];
@@ -101,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Icon(Icons.place, color: AppColor.primaryColor),
                     ),
                     SizedBox(width: 7.5),
-                    Text('Yogyakarta, Ind', style: AppTextStyle.locationName),
+                    Text(LocationData.selectedAddress.split(',').first, style: AppTextStyle.locationName),
                     Expanded(child: SizedBox()),
                     Container(
                       height: 44,
@@ -161,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Container(
                     width: double.infinity,
-                    height: 52,
+                    height: 62,
                     decoration: BoxDecoration(
                       color: AppColor.whiteColor,
                       borderRadius: BorderRadius.circular(12),
@@ -171,14 +172,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
                         children: [
-                          Icon(
-                            Icons.search_outlined,
-                            color: AppColor.primaryColor,
+                          Image.asset(
+                           'assets/icons/Hide.png',height:25 ,width: 25,
                           ),
                           SizedBox(width: 8),
                           Text(
                             'Search property',
-                            style: AppTextStyle.searchProperty,
+                            style: AppTextStyle.searchProperty.copyWith(fontSize: 16),
                           ),
                           Expanded(child: SizedBox()),
                           IconButton(
@@ -189,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               'assets/icons/Filter.png',
                               width: 24,
                               height: 24,
-                              color: AppColor.greyColor,
+                              color: AppColor.primaryColor,
                             ),
                           ),
                         ],
@@ -209,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 24),
                 Row(
                   children: [
-                    Text('Recommended', style: AppTextStyle.locationName),
+                    Text('Recommended', style: AppTextStyle.locationName.copyWith(fontWeight:FontWeight.w700)),
                     Expanded(child: SizedBox()),
                     Text('See all', style: AppTextStyle.Nearby),
                   ],
@@ -229,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 Row(
                   children: [
-                    Text('Nearby', style: AppTextStyle.locationName),
+                    Text('Nearby', style: AppTextStyle.locationName.copyWith(fontWeight:FontWeight.w700)),
                     Expanded(child: SizedBox()),
                     Text('See all', style: AppTextStyle.Nearby),
                   ],
@@ -238,13 +238,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 16),
 
                 SizedBox(
-                 height: 200.h,
+                 height: 180,
                
                   child: GridView.builder(
                     scrollDirection: Axis.horizontal, 
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, 
-                      mainAxisSpacing: 12, 
+                      mainAxisSpacing: 22, 
                       //crossAxisSpacing: 11, 
                        mainAxisExtent: 216,
                      // childAspectRatio: 224 / 164, 
@@ -255,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           NearByCard(estate: nearByEstate[index]),
                           SizedBox(height: 12,),
-                          Container(height: 1,color: AppColor.greyColor,width: 200,)
+                          Container(height: 1,color: AppColor.lightgrey,width: double.infinity,)
                         ],
                       );
                     },
@@ -264,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                  //SizedBox(height:16 ,) ,
                 Row(
                   children: [
-                    Text('Top Location', style: AppTextStyle.locationName),
+                    Text('Top Location', style: AppTextStyle.locationName.copyWith(fontWeight:FontWeight.w700)),
                     Expanded(child: SizedBox()),
                     Text('See all', style: AppTextStyle.Nearby),
                   ],
@@ -278,7 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Row(
                         children: [
                           TopLocationCard(topLocation: topLoc[index]),
-                           SizedBox(width: 12)
+                           SizedBox(width: 13)
                         ],
                       );
                      
@@ -287,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),SizedBox(height: 24,),
                 Row(
                   children: [
-                    Text('Popular For You', style: AppTextStyle.locationName),
+                    Text('Popular For You', style: AppTextStyle.locationName.copyWith(fontWeight:FontWeight.w700)),
                     Expanded(child: SizedBox()),
                     InkWell(onTap: () {
                       context.push('/home/popular');
@@ -306,7 +306,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         NearByCard(estate: estates.skip(2).take(3).toList()[index],showFavorite: true,),
                         SizedBox(height: 12,),
-                         Container(height: 1,color: AppColor.greyColor,width: double.infinity,),
+                         Container(height: 1,color: AppColor.lightgrey,width: double.infinity,),
                          SizedBox(height: 12,),
                          
                       ],
