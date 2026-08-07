@@ -278,7 +278,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ActionIcon(
                         img: 'assets/icons/chat.png',
                         onTap: () {
-                          context.push('/message');
+                          context.push('/chat', extra: {
+        'userName': 'albert',
+        'userAvatar': 'assets/image/person5.png',
+      },);
                         },
                       ),
                     ],

@@ -33,7 +33,7 @@ class ChatBubble extends StatelessWidget {
               if (!isMe && avatarUrl != null) ...[
                 CircleAvatar(
                   radius: 16,
-                  backgroundImage: NetworkImage(avatarUrl!),
+                  backgroundImage: AssetImage(avatarUrl!),
                 ),
                 const SizedBox(width: 8),
               ],

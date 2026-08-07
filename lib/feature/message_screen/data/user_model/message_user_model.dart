@@ -18,42 +18,42 @@ class MessageModel {
       MessageModel(
         id: '1',
         name: 'Anggela',
-        avatarUrl: 'https://i.pravatar.cc/150?img=47',
+        avatarUrl: 'assets/image/person1.png',
         lastMessage: 'Thank you for information',
         timestamp: '1:22 AM',
       ),
       MessageModel(
         id: '2',
         name: 'Theresa Webb',
-        avatarUrl: 'https://i.pravatar.cc/150?img=32',
+        avatarUrl: 'assets/image/person2.png',
         lastMessage: 'Hi there, the price is negotiable',
         timestamp: '8:22 PM',
       ),
       MessageModel(
         id: '3',
         name: 'Guy Hawkins',
-        avatarUrl: 'https://i.pravatar.cc/150?img=12',
+        avatarUrl: 'assets/image/person3.png',
         lastMessage: 'Have a plan for discuss this ?',
         timestamp: '8:22 PM',
       ),
       MessageModel(
         id: '4',
         name: 'Savannah Nguyen',
-        avatarUrl: 'https://i.pravatar.cc/150?img=25',
+        avatarUrl: 'assets/image/person4.png',
         lastMessage: 'Have a plan for discuss this ?',
         timestamp: '8:22 PM',
       ),
       MessageModel(
         id: '5',
         name: 'Arlene McCoy',
-        avatarUrl: 'https://i.pravatar.cc/150?img=60',
+        avatarUrl: 'assets/image/person5.png',
         lastMessage: 'Have a plan for discuss this ?',
         timestamp: '8:22 PM',
       ),
       MessageModel(
         id: '6',
         name: 'Leslie Alexander',
-        avatarUrl: 'https://i.pravatar.cc/150?img=14',
+        avatarUrl: 'assets/image/person6.png',
         lastMessage: 'Have a plan for discuss this ?',
         timestamp: '8:22 PM',
       ),
@@ -65,7 +65,7 @@ class MessageModel {
       MessageModel(
         id: 'a1',
         name: 'Marvin',
-        avatarUrl: 'https://i.pravatar.cc/150?img=48',
+        avatarUrl: 'assets/image/person8.png',
         lastMessage: '',
         timestamp: '',
       ),
@@ -73,31 +73,31 @@ class MessageModel {
         id: 'a2',
         name: 'Cody',
         avatarUrl:
-            'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600',
+            'assets/image/person9.png',
         lastMessage: '',
         timestamp: '',
       ),
       MessageModel(
         id: 'a3',
         name: 'Jenny',
-        avatarUrl: 'https://i.pravatar.cc/150?img=33',
+        avatarUrl: 'assets/image/person10.png',
         lastMessage: '',
         timestamp: '',
       ),
-      MessageModel(
+     /* MessageModel(
         id: 'a4',
         name: 'Robert',
         avatarUrl: 'https://i.pravatar.cc/150?img=53',
         lastMessage: '',
         timestamp: '',
-      ),
-      MessageModel(
+      ),*/
+    /*  MessageModel(
         id: 'a5',
         name: 'Floyd',
         avatarUrl: 'https://i.pravatar.cc/150?img=51',
         lastMessage: '',
         timestamp: '',
-      ),
+      ),*/
     ];
   }
 }

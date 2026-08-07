@@ -44,7 +44,12 @@ class CompletedBookingCard extends StatelessWidget {
         BookingActionTile(
           title: 'Call Agent',
           icon: 'assets/icons/Call.png',
-          onTap: () {context.push('/message');},
+          onTap: () {context.push('/chat',
+           extra: {
+        'userName': 'Robert',
+        'userAvatar': 'assets/image/person9.png',
+      },
+          );},
         ),
       ],
     );

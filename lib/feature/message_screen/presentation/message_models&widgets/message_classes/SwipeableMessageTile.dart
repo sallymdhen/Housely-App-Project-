@@ -77,7 +77,7 @@ class SwipeableMessageTileState extends State<SwipeableMessageTile> {
                 SwipeActionButton(
                   icon: SvgPicture.asset("assets/icons/More.svg"),
                   label: 'More',
-                  backgroundColor: AppColor.whiteColor,
+                  backgroundColor: AppColor.lightgrey,
                   width: _actionWidth,
                   onTap: _handleMore,
                 ),

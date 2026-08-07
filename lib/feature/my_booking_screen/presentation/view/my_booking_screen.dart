@@ -97,7 +97,7 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
               BookingActionTile(
                 title: 'Call Agent',
                  icon: 'assets/icons/Call.png',
-                 onTap: () {context.push('/message');},),
+                 onTap: () {context.push('/chat');},),
               const Divider(),
             ],
           ],

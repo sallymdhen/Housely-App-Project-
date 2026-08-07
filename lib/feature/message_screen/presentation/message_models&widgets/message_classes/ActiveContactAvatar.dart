@@ -17,7 +17,7 @@ class ActiveContactAvatar extends StatelessWidget {
         shape: BoxShape.circle,
         border: Border.all(color: AppColor.primaryColor, width: 2.5),
       ),
-      child: CircleAvatar(backgroundImage: NetworkImage(contact.avatarUrl)),
+      child: CircleAvatar(backgroundImage: AssetImage(contact.avatarUrl)),
     );
   }
 }
