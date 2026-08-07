@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: IconButton(
                         onPressed: () {
-                          context.push('/chat');
+                          context.push('/message');
                         },
                         icon: Image.asset(
                           'assets/icons/black_chat.-iconpng.png',

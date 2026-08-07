@@ -4,6 +4,7 @@ import 'package:flutter_application_team2/feature/my_booking_screen/data/booking
 import 'package:flutter_application_team2/feature/my_booking_screen/data/booking_status_type.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/presentation/widget/booking_action_tile.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/presentation/widget/booking_card.dart';
+import 'package:go_router/go_router.dart';
 
 class CompletedBookingCard extends StatelessWidget {
   CompletedBookingCard({super.key});
@@ -43,7 +44,7 @@ class CompletedBookingCard extends StatelessWidget {
         BookingActionTile(
           title: 'Call Agent',
           icon: 'assets/icons/Call.png',
-          onTap: () {},
+          onTap: () {context.push('/message');},
         ),
       ],
     );

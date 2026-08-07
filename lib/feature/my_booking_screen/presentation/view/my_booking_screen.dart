@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/core/widgets/custom_app_bar.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/data/booking_manager.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_application_team2/feature/my_booking_screen/presentation
 import 'package:flutter_application_team2/feature/my_booking_screen/presentation/widget/booking_empty.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/presentation/widget/booking_status_container.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/presentation/widget/completedbookingcard.dart';
+import 'package:go_router/go_router.dart';
 
 class MyBookingScreen extends StatefulWidget {
   const MyBookingScreen({super.key});
@@ -95,7 +97,7 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
               BookingActionTile(
                 title: 'Call Agent',
                  icon: 'assets/icons/Call.png',
-                 onTap: () {},),
+                 onTap: () {context.push('/message');},),
               const Divider(),
             ],
           ],

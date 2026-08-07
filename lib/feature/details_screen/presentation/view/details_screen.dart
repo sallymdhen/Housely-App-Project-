@@ -273,12 +273,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ],
                       ),
                       Expanded(child: SizedBox()),
-                      ActionIcon(img: 'assets/icons/Call.png', onTap: () {}),
+                      ActionIcon(img: 'assets/icons/Call.png', onTap: () {context.push('/message');}),
                       SizedBox(width: 8),
                       ActionIcon(
                         img: 'assets/icons/chat.png',
                         onTap: () {
-                          context.push('/chat');
+                          context.push('/message');
                         },
                       ),
                     ],
@@ -371,26 +371,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       ),
       
 
-      /*bottomNavigationBar: SafeArea(
-  child: Padding(
-    padding: EdgeInsets.fromLTRB(24.w, 12.h, 24.w, 16.h),
-    child: PrimaryBottom(
-      name: 'Rent now',
-      width: double.infinity,
-      onPressed: () {
-        showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          backgroundColor: Colors.transparent,
-          builder: (context) {
-            return const ShareBottomSheet();
-          },
-        );
-      },
-    ),
-  ),
-),*/
-
+     
 
 
 

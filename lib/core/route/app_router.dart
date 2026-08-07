@@ -1,5 +1,9 @@
+//import 'package:flutter_application_team2/feature/auth/presentation/view/Register.dart';
 import 'package:flutter_application_team2/feature/auth/presentation/view/Register.dart';
+import 'package:flutter_application_team2/feature/auth/presentation/view/create_new_password.dart';
+import 'package:flutter_application_team2/feature/auth/presentation/view/forgot_password.dart';
 import 'package:flutter_application_team2/feature/auth/presentation/view/login.dart';
+import 'package:flutter_application_team2/feature/auth/presentation/view/password_changed.dart';
 import 'package:flutter_application_team2/feature/booking_payment/data/card_model.dart';
 import 'package:flutter_application_team2/feature/booking_payment/data/paypal_model.dart';
 import 'package:flutter_application_team2/feature/booking_payment/presentation/view/add_new_card_screen.dart';
@@ -14,7 +18,9 @@ import 'package:flutter_application_team2/feature/filtter_screen/presentation/vi
 import 'package:flutter_application_team2/feature/home_screen/data/estate_model.dart';
 import 'package:flutter_application_team2/feature/home_screen/presentation/view/home_screen.dart';
 import 'package:flutter_application_team2/feature/home_screen/presentation/view/popular_screen.dart';
-import 'package:flutter_application_team2/feature/list_chat_screen/presentation/view/list_chat_screen.dart';
+import 'package:flutter_application_team2/feature/message_screen/presentation/message_models&widgets/message_widgets/DeleteConfirmationSheet.dart';
+import 'package:flutter_application_team2/feature/message_screen/presentation/view/chatScreen.dart';
+import 'package:flutter_application_team2/feature/message_screen/presentation/view/message_screen.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/presentation/view/my_booking_screen.dart';
 import 'package:flutter_application_team2/feature/navigation/presentation/view/main_screen.dart';
 import 'package:flutter_application_team2/feature/notification_screen/presentation/view/notification_screen.dart';
@@ -25,32 +31,20 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_application_team2/feature/location/presentation/view/choose_location_screen.dart';
 import 'package:flutter_application_team2/feature/location/presentation/view/location_permission_screen.dart';
 import 'package:flutter_application_team2/feature/onboarding/presentation/view/onboarding_screen.dart';
-import '../../feature/auth/presentation/view/create_new_password.dart';
-import '../../feature/auth/presentation/view/forgot_password.dart';
-import '../../feature/auth/presentation/view/login.dart';
-import '../../feature/auth/presentation/view/password_changed.dart';
 import '../../feature/auth/presentation/view/verify_email.dart';
 import 'package:flutter_application_team2/feature/splash/presentation/view/splash_screen.dart';
-//import 'package:flutter_application_team2/feature/onboarding/presentation/view/onboarding_screen.dart' ;
-
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation:'/login',
+    initialLocation: '/login',
     routes: [
-     
-      GoRoute(
-        path: '/login',
-        builder: (context, state) => const LoginScreen(),
-      ),
+      GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
 
-      
       GoRoute(
         path: '/register',
         builder: (context, state) => const Register_Screen(),
       ),
 
-      
       GoRoute(
         path: '/edit-profile',
         builder: (context, state) => const EditProfileScreen(),
@@ -72,11 +66,10 @@ class AppRouter {
             ],
           ),
 
-        /*  GoRoute(
+          /*  GoRoute(
             path: '/explore',
             builder: (context, state) => const ChooseLocationScreen(),
           ),*/
-
           GoRoute(
             path: '/favorite',
             builder: (context, state) => const FavoriteScreen(),
@@ -99,10 +92,10 @@ class AppRouter {
         builder: (context, state) => const NotificationScreen(),
       ),
 
-      GoRoute(
-        path: '/chat',
-        builder: (context, state) => const ListChatScreen(),
-      ),
+      //GoRoute(
+        //path: '/chat',
+        //builder: (context, state) => const ListChatScreen(),
+      //),
 
       GoRoute(
         path: '/search',
@@ -116,146 +109,103 @@ class AppRouter {
 
       GoRoute(
         path: '/details',
-        builder: (context, state) => DetailsScreen(
-          estate: state.extra as EstateModel,
-        ),
+        builder: (context, state) =>
+            DetailsScreen(estate: state.extra as EstateModel),
       ),
 
       GoRoute(
-  path: '/splash',
-  builder: (context, state) => const SplashScreen(),
-),
+        path: '/splash',
+        builder: (context, state) => const SplashScreen(),
+      ),
 
-GoRoute(
-  path: '/onboarding',
-  builder: (context, state) => const OnboardingScreen(),
-),
+      GoRoute(
+        path: '/onboarding',
+        builder: (context, state) => const OnboardingScreen(),
+      ),
 
-GoRoute(
-  path: '/forgotPassword',
-  builder: (context, state) => const ForgotPassword(),
-),
+      GoRoute(
+        path: '/forgotPassword',
+        builder: (context, state) => const ForgotPassword(),
+      ),
 
-GoRoute(
-  path: '/verifyEmail',
-  builder: (context, state) => const VerifyEmail(),
-),
+      GoRoute(
+        path: '/verifyEmail',
+        builder: (context, state) => const VerifyEmail(),
+      ),
 
-GoRoute(
-  path: '/createNewPassword',
-  builder: (context, state) => const CreateNewPassword(),
-),
+      GoRoute(
+        path: '/createNewPassword',
+        builder: (context, state) => const CreateNewPassword(),
+      ),
 
-GoRoute(
-  path: '/passwordChanged',
-  builder: (context, state) => const PasswordChanged(),
-),
+      GoRoute(
+        path: '/passwordChanged',
+        builder: (context, state) => const PasswordChanged(),
+      ),
 
-GoRoute(
-  path: '/permissionLocation',
-  builder: (context, state) => const LocationPermissionScreen(),
-),
+      GoRoute(
+        path: '/permissionLocation',
+        builder: (context, state) => const LocationPermissionScreen(),
+      ),
 
-GoRoute(
-  path: '/explore',
-  builder: (context, state) => const ChooseLocationScreen(),
-),
- /*GoRoute(
-        path: '/searchEmpty',
-        builder: (context, state) => const SearchEmptyScreen(),
-      ),*/
-/*GoRoute(
-        path: '/writeReview',
-        builder: (context, state) => const WriteReviewScreen(),
-      ),*/
-/*GoRoute(
-        path: '/uploadPhoto',
-        builder: (context, state) => const UploadPhotoScreen(),
-      ),*/
+      GoRoute(
+        path: '/explore',
+        builder: (context, state) => const ChooseLocationScreen(),
+      ),
 
-/*GoRoute(
-        path: '/notificationEmpty',
-        builder: (context, state) => const NotificationEmptyScreen(),
-      ),*/
+      GoRoute(
+        path: '/reserve',
+        builder: (context, state) {
+          final estate = state.extra as EstateModel;
 
-  
-
-GoRoute(
-  path: '/reserve',
-  builder: (context, state) {
-    final estate = state.extra as EstateModel;
-
-    return ReserveScreen(
-      estate: estate,
-    );
-  },
-),
+          return ReserveScreen(estate: estate);
+        },
+      ),
 
       GoRoute(
         path: '/reserveData',
         builder: (context, state) => const CalendarBottomSheet(),
-      ),      
-
+      ),
 
       GoRoute(
-  path: '/addNewCard',
-  builder: (context, state) {
-    return AddNewCardScreen(
-      card: state.extra as CardModel?,
-    );
-  },
-),     
+        path: '/addNewCard',
+        builder: (context, state) {
+          return AddNewCardScreen(card: state.extra as CardModel?);
+        },
+      ),
 
-GoRoute(
-  path: '/paypal',
-  builder: (context, state) {
-    return PaypalScreen(
-      paypal: state.extra as PaypalModel?,
-    );
-  },
-),
-
+      GoRoute(
+        path: '/paypal',
+        builder: (context, state) {
+          return PaypalScreen(paypal: state.extra as PaypalModel?);
+        },
+      ),
 
       GoRoute(
         path: '/reserveSucces',
         builder: (context, state) => const SuccesPaySheet(),
-      ),  
+      ),
+      GoRoute(//
+        path: '/message',
+        builder: (context, state) => const MessageScreen(),
+      ),
 
-      /*GoRoute(
-        path: '/myServeUNComplete',
-        builder: (context, state) => const MyServeUnCompleteScreen(),
-      ),*/  
+      GoRoute(
+        path: '/chat',
+        builder: (context, state) {
+          final extraData = state.extra as Map<String, dynamic>?;
 
+          return ChatDetailScreen(
+            userName: extraData?['userName'] ?? '',
+            userAvatar: extraData?['userAvatar'] ?? '',
+          );
+        },
+      ),
 
-      /*GoRoute(
-        path: '/myServeComplete',
-        builder: (context, state) => const MyServeCompleteScreen(),
-      ),*/   
-
-
-      /*GoRoute(
-        path: '/myServeUNCancel',
-        builder: (context, state) => const MyServeUNCancelScreen(),
-      ),*/        
-
-
-/*GoRoute(
-        path: '/myServeEmpty',
-        builder: (context, state) => const MyServeEmptyScreen(),
-      ),*/        
-
-      
-
-
-
-
-
-
-
-
-
-
-
+      GoRoute(
+ path: '/DeleteConfirmationSheet',
+ builder: (context, state) => DeleteConfirmationSheet(),
+),
 
 
 
@@ -266,4 +216,14 @@ GoRoute(
 
     ],
   );
+
+
+
+
+
+
+
+
+
+
 }

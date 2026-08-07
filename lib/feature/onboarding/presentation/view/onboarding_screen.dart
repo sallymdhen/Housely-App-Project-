@@ -43,12 +43,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void skip() {
-    context.go('/login');
-   /* _pageController.animateToPage(
-      onboardingData.length - 1,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );*/
+   
   }
 
   @override

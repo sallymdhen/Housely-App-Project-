@@ -20,6 +20,7 @@ class AppTextStyle {
 
   static final TextStyle locationName = TextStyle(
     fontFamily: AppFonts.inter,
+
     fontWeight: FontWeight.bold,
     fontSize: 16,
     color: AppColor.blackColor,
@@ -164,4 +165,16 @@ class AppTextStyle {
     fontSize: 22,
     fontWeight: FontWeight.w300,
   );
+
+
+
+
+
+
+
+
+
+
+
+  
 }
