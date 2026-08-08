@@ -9,7 +9,9 @@ import 'package:flutter_application_team2/feature/home_screen/presentation/widge
 import 'package:flutter_application_team2/feature/location/data/location_data.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import '../../../search_screen/data/model/filter_model.dart';
 import 'package:flutter_application_team2/feature/favorite_screen/data/favorite_data.dart';
+import '../../../search_screen/presentation/widget/search_widget/filter_bottom_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -19,22 +21,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
-   final estates = EstateData.estates;
+  final estates = EstateData.estates;
+  FilterModel filter = const FilterModel();
   List<EstateModel> nearByEstate = [
     EstateModel(
       image: 'assets/image/estate_five.png',
       name: 'maharani villa ',
       price: 380,
       location: 'Benhil , jl.Bendug',
-      route: 4.5
+      route: 4.5,
     ),
     EstateModel(
       image: 'assets/image/estate_seven.jpg',
       name: 'green valley',
       price: 210,
       location: 'Menteny.jl thamirin',
-      route: 4.5
+      route: 4.5,
     ),
 
     EstateModel(
@@ -42,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
       name: 'Azure beach front',
       price: 310,
       location: 'Ancol,jl.panta india',
-      route: 4.5
+      route: 4.5,
     ),
 
     EstateModel(
@@ -50,29 +52,30 @@ class _HomeScreenState extends State<HomeScreen> {
       name: 'Apartement land',
       price: 520,
       location: 'jl.tentara palajar',
-      route: 4.7
+      route: 4.7,
     ),
   ];
 
-  List<EstateModel> topLoc=[
+  List<EstateModel> topLoc = [
     EstateModel(
-    image: 'assets/image/yogykart_estate.png' ,
-    location: 'yodykarta'),
+      image: 'assets/image/yogykart_estate.png',
+      location: 'yodykarta',
+    ),
 
-    EstateModel(
-    image: 'assets/image/Bali_estate.png' ,
-    location: 'Bali'),
-    
-    EstateModel(
-    image: 'assets/image/malang_estate.png' ,
-    location: 'Malang'),
+    EstateModel(image: 'assets/image/Bali_estate.png', location: 'Bali'),
 
-   /*EstateModel(
+    EstateModel(image: 'assets/image/malang_estate.png', location: 'Malang'),
+
+    /*EstateModel(
     image: 'assets/image/estate_five.png' ,
     location: 'Taywan'),*/
-     
-    
   ];
+  Future<void> openFilterSheet() async {
+    final result = await showFilterBottomSheet(context, initialFilter: filter);
+    if (result != null) {
+      setState(() => filter = result);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +105,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Icon(Icons.place, color: AppColor.primaryColor),
                     ),
                     SizedBox(width: 7.5),
-                    Text(LocationData.selectedAddress.split(',').first, style: AppTextStyle.locationName),
+                    Text(
+                      LocationData.selectedAddress.split(',').first,
+                      style: AppTextStyle.locationName,
+                    ),
                     Expanded(child: SizedBox()),
                     Container(
                       height: 44,
@@ -173,18 +179,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         children: [
                           Image.asset(
-                           'assets/icons/Hide.png',height:25 ,width: 25,
+                            'assets/icons/Hide.png',
+                            height: 25,
+                            width: 25,
                           ),
                           SizedBox(width: 8),
                           Text(
                             'Search property',
-                            style: AppTextStyle.searchProperty.copyWith(fontSize: 16),
+                            style: AppTextStyle.searchProperty.copyWith(
+                              fontSize: 16,
+                            ),
                           ),
                           Expanded(child: SizedBox()),
                           IconButton(
-                            onPressed: () {
-                              context.push('/filtter');
-                            },
+                            onPressed: openFilterSheet,
                             icon: Image.asset(
                               'assets/icons/Filter.png',
                               width: 24,
@@ -198,7 +206,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(height: 22),
-                ClipRRect(borderRadius: BorderRadiusGeometry.circular(15),
+                ClipRRect(
+                  borderRadius: BorderRadiusGeometry.circular(15),
                   child: Image.asset(
                     'assets/image/Promo.png',
                     width: double.infinity,
@@ -209,7 +218,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 24),
                 Row(
                   children: [
-                    Text('Recommended', style: AppTextStyle.locationName.copyWith(fontWeight:FontWeight.w700)),
+                    Text(
+                      'Recommended',
+                      style: AppTextStyle.locationName.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     Expanded(child: SizedBox()),
                     Text('See all', style: AppTextStyle.Nearby),
                   ],
@@ -221,7 +235,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: estates.take(2).length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return CardEstate(estate:estates.take(2).toList()[index],);
+                      return CardEstate(
+                        estate: estates.take(2).toList()[index],
+                      );
                     },
                   ),
                 ),
@@ -229,7 +245,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 Row(
                   children: [
-                    Text('Nearby', style: AppTextStyle.locationName.copyWith(fontWeight:FontWeight.w700)),
+                    Text(
+                      'Nearby',
+                      style: AppTextStyle.locationName.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     Expanded(child: SizedBox()),
                     Text('See all', style: AppTextStyle.Nearby),
                   ],
@@ -238,37 +259,47 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 16),
 
                 SizedBox(
-                 height: 180,
-               
+                  height: 180,
+
                   child: GridView.builder(
-                    scrollDirection: Axis.horizontal, 
+                    scrollDirection: Axis.horizontal,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, 
-                      mainAxisSpacing: 22, 
-                      //crossAxisSpacing: 11, 
-                       mainAxisExtent: 216,
-                     // childAspectRatio: 224 / 164, 
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 22,
+                      //crossAxisSpacing: 11,
+                      mainAxisExtent: 216,
+                      // childAspectRatio: 224 / 164,
                     ),
                     itemCount: nearByEstate.length,
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
                           NearByCard(estate: nearByEstate[index]),
-                          SizedBox(height: 12,),
-                          Container(height: 1,color: AppColor.lightgrey,width: double.infinity,)
+                          SizedBox(height: 12),
+                          Container(
+                            height: 1,
+                            color: AppColor.lightgrey,
+                            width: double.infinity,
+                          ),
                         ],
                       );
                     },
                   ),
                 ),
-                 //SizedBox(height:16 ,) ,
+                //SizedBox(height:16 ,) ,
                 Row(
                   children: [
-                    Text('Top Location', style: AppTextStyle.locationName.copyWith(fontWeight:FontWeight.w700)),
+                    Text(
+                      'Top Location',
+                      style: AppTextStyle.locationName.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     Expanded(child: SizedBox()),
                     Text('See all', style: AppTextStyle.Nearby),
                   ],
-                ),SizedBox(height: 16,),
+                ),
+                SizedBox(height: 16),
                 SizedBox(
                   height: 45,
                   child: ListView.builder(
@@ -278,25 +309,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Row(
                         children: [
                           TopLocationCard(topLocation: topLoc[index]),
-                           SizedBox(width: 13)
+                          SizedBox(width: 13),
                         ],
                       );
-                     
                     },
                   ),
-                ),SizedBox(height: 24,),
+                ),
+                SizedBox(height: 24),
                 Row(
                   children: [
-                    Text('Popular For You', style: AppTextStyle.locationName.copyWith(fontWeight:FontWeight.w700)),
+                    Text(
+                      'Popular For You',
+                      style: AppTextStyle.locationName.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     Expanded(child: SizedBox()),
-                    InkWell(onTap: () {
-                      context.push('/home/popular');
-                    },
-                      child: Text('See all', style: AppTextStyle.Nearby)),
+                    InkWell(
+                      onTap: () {
+                        context.push('/home/popular');
+                      },
+                      child: Text('See all', style: AppTextStyle.Nearby),
+                    ),
                   ],
                 ),
-                SizedBox(height: 16,),
-                
+                SizedBox(height: 16),
+
                 ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
@@ -304,28 +342,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                        NearByCard(estate: estates.skip(2).take(3).toList()[index],showFavorite: true,),
-                        SizedBox(height: 12,),
-                         Container(height: 1,color: AppColor.lightgrey,width: double.infinity,),
-                         SizedBox(height: 12,),
-                         
+                        NearByCard(
+                          estate: estates.skip(2).take(3).toList()[index],
+                          showFavorite: true,
+                        ),
+                        SizedBox(height: 12),
+                        Container(
+                          height: 1,
+                          color: AppColor.lightgrey,
+                          width: double.infinity,
+                        ),
+                        SizedBox(height: 12),
                       ],
                     );
                   },
                 ),
-
-
-                
-
-
-
-
-
-
-
-
-
-
               ],
             ),
           ),

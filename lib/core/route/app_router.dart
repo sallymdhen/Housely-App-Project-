@@ -23,10 +23,12 @@ import 'package:flutter_application_team2/feature/message_screen/presentation/vi
 import 'package:flutter_application_team2/feature/message_screen/presentation/view/message_screen.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/presentation/view/my_booking_screen.dart';
 import 'package:flutter_application_team2/feature/navigation/presentation/view/main_screen.dart';
-import 'package:flutter_application_team2/feature/notification_screen/presentation/view/notification_screen.dart';
+import 'package:flutter_application_team2/feature/notification/presentation/view/notification_screen.dart';
 import 'package:flutter_application_team2/feature/profile_screen/presentatoin/view/edit_profile_screen.dart';
 import 'package:flutter_application_team2/feature/profile_screen/presentatoin/view/profile_screen.dart';
+import 'package:flutter_application_team2/feature/search_screen/data/model/filter_model.dart';
 import 'package:flutter_application_team2/feature/search_screen/presentation/view/search_screen.dart';
+import 'package:flutter_application_team2/feature/search_screen/presentation/widget/search_widget/filter_bottom_sheet.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_application_team2/feature/location/presentation/view/choose_location_screen.dart';
 import 'package:flutter_application_team2/feature/location/presentation/view/location_permission_screen.dart';
@@ -102,10 +104,7 @@ class AppRouter {
         builder: (context, state) => const SearchScreen(),
       ),
 
-      GoRoute(
-        path: '/filtter',
-        builder: (context, state) => const FiltterScreen(),
-      ),
+      
 
       GoRoute(
         path: '/details',
