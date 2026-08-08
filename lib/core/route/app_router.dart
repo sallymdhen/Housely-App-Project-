@@ -14,7 +14,6 @@ import 'package:flutter_application_team2/feature/booking_payment/presentation/w
 import 'package:flutter_application_team2/feature/details_screen/presentation/view/details_screen.dart';
 import 'package:flutter_application_team2/feature/explore_screen/presentation/view/explore_screen.dart';
 import 'package:flutter_application_team2/feature/favorite_screen/presentation/view/favorite_screen.dart';
-import 'package:flutter_application_team2/feature/filtter_screen/presentation/view/filtter_screen.dart';
 import 'package:flutter_application_team2/feature/home_screen/data/estate_model.dart';
 import 'package:flutter_application_team2/feature/home_screen/presentation/view/home_screen.dart';
 import 'package:flutter_application_team2/feature/home_screen/presentation/view/popular_screen.dart';
@@ -26,6 +25,7 @@ import 'package:flutter_application_team2/feature/navigation/presentation/view/m
 import 'package:flutter_application_team2/feature/notification/presentation/view/notification_screen.dart';
 import 'package:flutter_application_team2/feature/profile_screen/presentatoin/view/edit_profile_screen.dart';
 import 'package:flutter_application_team2/feature/profile_screen/presentatoin/view/profile_screen.dart';
+import 'package:flutter_application_team2/feature/review/view/write_review_screen.dart';
 import 'package:flutter_application_team2/feature/search_screen/data/model/filter_model.dart';
 import 'package:flutter_application_team2/feature/search_screen/presentation/view/search_screen.dart';
 import 'package:flutter_application_team2/feature/search_screen/presentation/widget/search_widget/filter_bottom_sheet.dart';
@@ -206,6 +206,10 @@ class AppRouter {
  builder: (context, state) => DeleteConfirmationSheet(),
 ),
 
+GoRoute(
+        path: '/review',
+        builder: (context, state) => const WriteReviewScreen(),
+      ),
 
 
 

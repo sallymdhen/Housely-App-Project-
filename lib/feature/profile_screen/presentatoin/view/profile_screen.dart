@@ -11,13 +11,18 @@ import '../widget/custom_widget.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
-  Future<void> handleSignOut(BuildContext context) async {
+  
+   Future<void> handleSignOut(BuildContext context) async {
+    await Future.delayed(const Duration(seconds: 2));
     final prefs = await SharedPreferences.getInstance();
 
+    await prefs.setBool('remember_me', false);
     await prefs.setBool('is_logged_in', false);
 
     if (!context.mounted) return;
+    context.go('/login');
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +102,7 @@ class ProfileScreen extends StatelessWidget {
                 // زر تسجيل الخروج
                 SignOutButton(
                   onTap: () {
+                    
                     handleSignOut(context);
                     print(
                       "////////////////////////////////////////////////////",

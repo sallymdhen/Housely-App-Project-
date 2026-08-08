@@ -36,7 +36,7 @@ class CompletedBookingCard extends StatelessWidget {
         BookingActionTile(
           title: 'Write review',
           icon: 'assets/icons/review.png',
-          onTap: () {},
+          onTap: () {context.push('/review');},
         ),
 
         const Divider(),
