@@ -38,7 +38,7 @@ import 'package:flutter_application_team2/feature/splash/presentation/view/splas
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/splash',
     routes: [
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
 
