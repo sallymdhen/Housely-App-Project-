@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 import '../../../../core/constant/app_color.dart';
 import '../../../../core/constant/app_fonts.dart';
@@ -69,6 +74,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     });
   }
 
+  Future<void> _pickAndUpdateImage() async {
+    final picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+    );
+    if (pickedFile == null) return;
+
+    final appDir = await getApplicationDocumentsDirectory();
+    final fileName = p.basename(pickedFile.path);
+    final savedImage = await File(
+      pickedFile.path,
+    ).copy('${appDir.path}/$fileName');
+
+    await _editProfileData.updateProfileImage(savedImage.path);
+    if (!mounted) return;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +103,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: AppColor.blackColor),
-          onPressed: () => context.go('/profile'),
+          onPressed: () => context.pop(),
           //Navigator.maybePop(context),
         ),
         title: Text(
@@ -104,9 +128,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Center(
                       child: ProfileAvatar(
                         imageUrl: _editProfileData.imageUrl,
-                        onCameraTap: () {
-                          // تغيير الصورة مستقبلاً
-                        },
+                        onCameraTap: _pickAndUpdateImage,
                       ),
                     ),
                     const SizedBox(height: 40),
@@ -119,7 +141,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           return 'Please enter your full name';
                         }
                         return null;
-                      }, width: double.infinity,
+                      },
+                      width: double.infinity,
                     ),
                     const SizedBox(height: 20),
                     CustomTextFormField(
@@ -131,7 +154,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           return 'Please enter your username';
                         }
                         return null;
-                      }, width: double.infinity,
+                      },
+                      width: double.infinity,
                     ),
                     const SizedBox(height: 20),
                     CustomTextFormField(
@@ -151,7 +175,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
 
                         return null;
-                      }, width: double.infinity,
+                      },
+                      width: double.infinity,
                     ),
                     const SizedBox(height: 20),
                     DateOfBirthField(
@@ -168,8 +193,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                           if (!mounted) return;
 
-                          if (saved) {context.go('/profile');
-                           // Navigator.maybePop(context);
+                          if (saved) {
+                            context.pop();
                           }
                         }
                       },

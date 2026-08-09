@@ -57,13 +57,15 @@ class _Register_ScreenState extends State<Register_Screen> {
                     if (value == null || value.trim().isEmpty) {
                       return 'Please enter your email';
                     }
-                    final emailRegex =
-                        RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                    final emailRegex = RegExp(
+                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                    );
                     if (!emailRegex.hasMatch(value.trim())) {
                       return 'Email is not correct';
                     }
                     return null;
-                  }, width: double.infinity,
+                  },
+                  width: double.infinity,
                 ),
 
                 const SizedBox(height: 20),
@@ -77,7 +79,8 @@ class _Register_ScreenState extends State<Register_Screen> {
                       return 'Please enter your username';
                     }
                     return null;
-                  }, width: double.infinity,
+                  },
+                  width: double.infinity,
                 ),
 
                 const SizedBox(height: 20),
@@ -102,7 +105,8 @@ class _Register_ScreenState extends State<Register_Screen> {
                       return 'The password must be at least 8 characters long.';
                     }
                     return null;
-                  }, width: double.infinity,
+                  },
+                  width: double.infinity,
                 ),
 
                 const SizedBox(height: 16),
@@ -223,9 +227,7 @@ class _Register_ScreenState extends State<Register_Screen> {
                         fontWeight: FontWeight.w400,
                       ),
                       children: [
-                        const TextSpan(
-                          text: "Already have an account ? ",
-                        ),
+                        const TextSpan(text: "Already have an account ? "),
                         TextSpan(
                           text: 'Sign in',
                           style: TextStyle(
@@ -234,7 +236,7 @@ class _Register_ScreenState extends State<Register_Screen> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              context.go('/');
+                              context.go('/login');
                             },
                         ),
                       ],

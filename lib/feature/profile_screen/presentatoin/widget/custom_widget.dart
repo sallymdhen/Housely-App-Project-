@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -22,7 +24,9 @@ class ProfileAvatar extends StatelessWidget {
           CircleAvatar(
             radius: 70,
             backgroundColor: AppColor.facebookColor,
-            backgroundImage: AssetImage(imageUrl),
+            backgroundImage: imageUrl.startsWith('assets/')
+                ? AssetImage(imageUrl) as ImageProvider
+                : FileImage(File(imageUrl)),
           ),
           Positioned(
             bottom: 0,
