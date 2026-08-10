@@ -3,29 +3,26 @@ import 'package:flutter_application_team2/core/constant/app_color.dart';
 import 'package:flutter_application_team2/core/constant/app_text_style.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-///==============================================================
+
 /// هذا الملف مسؤول فقط عن تصميم أيام التقويم.
 /// لا يحتوي على TableCalendar وإنما يعيد CalendarBuilders
 /// ليتم استخدامها داخل calendar_body.dart
-///==============================================================
+
 CalendarBuilders buildCalendarBuilders({
   required DateTime? rangeStart,
   required DateTime? rangeEnd,
   required List<DateTime> bookedDays,
 }) {
 
-  ///----------------------------------------------------------
+  
   /// التحقق إذا كان اليوم موجود ضمن الأيام المحجوزة
-  ///----------------------------------------------------------
   bool isBooked(DateTime day) {
     return bookedDays.any((d) => isSameDay(d, day));
   }
 
   return CalendarBuilders(
 
-    ///----------------------------------------------------------
-    /// رسم الأيام العادية داخل الشهر
-    ///----------------------------------------------------------
+    
     defaultBuilder: (context, day, focusedDay) {
       return _dayWidget(
         day: day,
@@ -48,10 +45,9 @@ CalendarBuilders buildCalendarBuilders({
       );
     },
 
-    ///----------------------------------------------------------
+   
     /// رسم يوم "اليوم الحالي"
-    /// سنعامله مثل الأيام العادية لأن التصميم لا يميزه.
-    ///----------------------------------------------------------
+
     todayBuilder: (context, day, focusedDay) {
       return _dayWidget(
         day: day,
@@ -95,24 +91,24 @@ withinRangeBuilder: (context, day, focusedDay) {
 
 
 
-    ///----------------------------------------------------------
+    
     /// الأيام التي تنتمي للشهر السابق أو التالي
-    ///----------------------------------------------------------
+  
     outsideBuilder: (context, day, focusedDay) {
       return Center(
         child: Text(
           '${day.day}',
           style: AppTextStyle.NearbyName.copyWith(
-            color: Colors.grey.shade400,
-            fontSize: 14,
+            color: Color(0xFF9DA4AE),
+            fontSize: 16,
           ),
         ),
       );
     },
 
-    ///----------------------------------------------------------
+  
     /// الأيام المعطلة (الأيام المحجوزة)
-    ///----------------------------------------------------------
+    
     disabledBuilder: (context, day, focusedDay) {
       return _dayWidget(
         day: day,
@@ -122,10 +118,10 @@ withinRangeBuilder: (context, day, focusedDay) {
   );
 }
 
-///==============================================================
+
 /// هذه الويدجت مسؤولة عن رسم يوم واحد فقط.
 /// تستقبل حالة اليوم ثم تحدد اللون المناسب.
-///==============================================================
+
 Widget _dayWidget({
   required DateTime day,
 
@@ -143,36 +139,33 @@ Widget _dayWidget({
 
   Color textColor = AppColor.blackColor;
 
-  ///----------------------------------------------------------
-  /// بداية أو نهاية الرينج
-  /// دائرة بنفسجي غامق
-  ///----------------------------------------------------------
+  
   if (isStart || isEnd) {
     backgroundColor = AppColor.primaryColor;
     textColor = Colors.white;
   }
 
-  ///----------------------------------------------------------
-  /// الأيام الواقعة داخل الرينج
+  
+  
   /// دائرة بنفسجي فاتح
-  ///----------------------------------------------------------
+ 
   else if (isWithinRange) {
     backgroundColor = const Color(0xFFE9D7FE);
     textColor = Color(0xFF1F2A37);
    // backgroundColor = AppColor.primaryColor.withOpacity(.20);
   }
 
-  ///----------------------------------------------------------
+ 
   /// اليوم محجوز
-  ///----------------------------------------------------------
+  
   else if (isBooked) {
-    backgroundColor = AppColor.greyColor;
-    textColor = AppColor.lightgrey;
+    backgroundColor = const Color(0xFFE9D7FE);
+    textColor = AppColor.blackColor;
   }
 
-  ///----------------------------------------------------------
+  
   /// رسم الدائرة الخاصة باليوم
-  ///----------------------------------------------------------
+  
   return Center(
     child: Container(
       width: 38,

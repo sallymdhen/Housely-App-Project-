@@ -48,8 +48,31 @@ class CancelBookingSheet extends StatelessWidget {
             ),
 
             const SizedBox(height: 28),
-
             Row(
+  children: [
+    Expanded(
+      child: PrimaryBottom(
+        onPressed: () {
+          Navigator.pop(context, false);
+        },
+        name: "edit data ",
+        width: double.infinity,
+      ),
+    ),
+
+    const SizedBox(width: 12),
+
+    Expanded(
+      child: PrimaryBottom(
+        name: "Yes",
+        width: double.infinity,
+        onPressed: onConfirm,
+      ),
+    ),
+  ],
+),
+
+          /*  Row(
               children: [
 
                 Expanded(
@@ -72,7 +95,7 @@ class CancelBookingSheet extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
+            ),*/
 
             const SizedBox(height: 10),
           ],

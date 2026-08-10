@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_team2/feature/booking_payment/presentation/widgets/custom_divider.dart';
 import 'package:flutter_application_team2/feature/home_screen/data/estate_model.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/data/booking_model.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/data/booking_status_type.dart';
@@ -31,7 +32,7 @@ class CompletedBookingCard extends StatelessWidget {
         ),
 
         const SizedBox(height: 10),
-        const Divider(),
+        const CustomDivider(),
 
         BookingActionTile(
           title: 'Write review',
@@ -39,7 +40,8 @@ class CompletedBookingCard extends StatelessWidget {
           onTap: () {context.push('/review');},
         ),
 
-        const Divider(),
+        const CustomDivider(),
+        SizedBox(height: 4,),
 
         BookingActionTile(
           title: 'Call Agent',
@@ -51,6 +53,8 @@ class CompletedBookingCard extends StatelessWidget {
       },
           );},
         ),
+         SizedBox(height: 4,),
+        const CustomDivider(),
       ],
     );
   }

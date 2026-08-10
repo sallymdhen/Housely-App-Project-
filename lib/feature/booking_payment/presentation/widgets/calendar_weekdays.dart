@@ -30,7 +30,7 @@ class CalendarWeekDays extends StatelessWidget {
                   days[index],
                   style: AppTextStyle.NearbyLoc.copyWith(
                     fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.bold,
                     color: AppColor.blackColor,
                   ),
                 ),

@@ -27,6 +27,7 @@ import 'package:flutter_application_team2/feature/profile_screen/presentatoin/vi
 import 'package:flutter_application_team2/feature/profile_screen/presentatoin/view/profile_screen.dart';
 import 'package:flutter_application_team2/feature/review/view/write_review_screen.dart';
 import 'package:flutter_application_team2/feature/search_screen/data/model/filter_model.dart';
+import 'package:flutter_application_team2/feature/search_screen/presentation/view/filter_result_screen.dart';
 import 'package:flutter_application_team2/feature/search_screen/presentation/view/search_screen.dart';
 import 'package:flutter_application_team2/feature/search_screen/presentation/widget/search_widget/filter_bottom_sheet.dart';
 import 'package:go_router/go_router.dart';
@@ -38,7 +39,7 @@ import 'package:flutter_application_team2/feature/splash/presentation/view/splas
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: '/splash',
+    initialLocation: '/home',
     routes: [
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
 
@@ -210,6 +211,16 @@ GoRoute(
         path: '/review',
         builder: (context, state) => const WriteReviewScreen(),
       ),
+
+      GoRoute(
+  path: '/filter-results',
+  builder: (context, state) {
+final estates = state.extra as List<EstateModel>;
+    return FilterResultScreen(
+      estates: estates,
+    );
+  },
+),
 
 
 

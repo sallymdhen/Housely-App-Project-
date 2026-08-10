@@ -36,6 +36,22 @@ class _ReserveScreenState extends State<ReserveScreen> {
   DateTime? selectedEnd;
   BookingModel? currentBooking;
   PaypalModel? savedPaypal;
+  @override
+  //هيدي منشان اذا عندي حجز مثلا وبدي أ{جع ادفع لأن هوي بلاصل بحالة الوايتينغ }
+  @override
+  void initState() {
+    super.initState();
+
+    currentBooking = BookingManager.getBookingByEstate(widget.estate);
+
+    if (currentBooking != null) {
+      selectedStart = currentBooking!.checkInDate;
+      selectedEnd = currentBooking!.checkOutDate;
+
+      savedCard = currentBooking!.card;
+      savedPaypal = currentBooking!.paypal;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -181,11 +197,19 @@ class _ReserveScreenState extends State<ReserveScreen> {
                       );
 
                       if (currentBooking == null) {
+                        /* currentBooking = BookingModel(
+                          estate: widget.estate,
+                          checkInDate: selectedStart!,
+                          checkOutDate: selectedEnd!,
+                          status: BookingStatusType.waitingPayment,
+                        );*/
                         currentBooking = BookingModel(
                           estate: widget.estate,
                           checkInDate: selectedStart!,
                           checkOutDate: selectedEnd!,
                           status: BookingStatusType.waitingPayment,
+                          card: savedCard,
+                          paypal: savedPaypal,
                         );
 
                         BookingManager.bookings.add(currentBooking!);
@@ -240,8 +264,6 @@ class _ReserveScreenState extends State<ReserveScreen> {
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),
-                
-                
               ),
               SizedBox(height: 16),
               savedCard == null && savedPaypal == null
@@ -254,70 +276,112 @@ class _ReserveScreenState extends State<ReserveScreen> {
                             final card = await context.push<CardModel>(
                               '/addNewCard',
                             );
-
                             if (card != null) {
+                              setState(() {
+                                savedCard = card;
+                                savedPaypal = null;
+
+                                if (currentBooking != null) {
+                                  currentBooking!.card = card;
+                                  currentBooking!.paypal = null;
+                                }
+                              });
+                            }
+
+                            /*  if (card != null) {
   setState(() {
     savedCard = card;
     savedPaypal = null;
   });
-}
+}*/
                           },
                         ),
 
                         SizedBox(height: 8),
 
                         PaymentMethodTile(
-  imgPath: 'assets/icons/pay_pal.png',
-  title: 'Paypal',
-  onTap: () async {
-    final paypal = await context.push<PaypalModel>(
-      '/paypal',
-    );
+                          imgPath: 'assets/icons/pay_pal.png',
+                          title: 'Paypal',
+                          onTap: () async {
+                            final paypal = await context.push<PaypalModel>(
+                              '/paypal',
+                            );
+                            if (paypal != null) {
+                              setState(() {
+                                savedPaypal = paypal;
+                                savedCard = null;
 
-    if (paypal != null) {
-      setState(() {
-        savedPaypal = paypal;
-        savedCard = null;
-      });
-    }
-  },
-),
+                                if (currentBooking != null) {
+                                  currentBooking!.paypal = paypal;
+                                  currentBooking!.card = null;
+                                }
+                              });
+                            }
+
+                            /* if (paypal != null) {
+                              setState(() {
+                                savedPaypal = paypal;
+                                savedCard = null;
+                              });
+                            }*/
+                          },
+                        ),
                       ],
                     )
                   : savedCard != null
-    ? EditPasswordRow(
-        imgPath: 'assets/icons/logo _payment.png',
-        title:
-            '............ ${savedCard!.cardNumber.substring(savedCard!.cardNumber.length - 4)}',
-        onTap: () async {
-          final editedCard = await context.push<CardModel>(
-            '/addNewCard',
-            extra: savedCard,
-          );
+                  ? EditPasswordRow(
+                      imgPath: 'assets/icons/logo _payment.png',
+                      title:
+                          '............ ${savedCard!.cardNumber.substring(savedCard!.cardNumber.length - 4)}',
+                      onTap: () async {
+                        final editedCard = await context.push<CardModel>(
+                          '/addNewCard',
+                          extra: savedCard,
+                        );
+                        if (editedCard != null) {
+                          setState(() {
+                            savedCard = editedCard;
 
-          if (editedCard != null) {
-            setState(() {
-              savedCard = editedCard;
-            });
-          }
-        },
-      )
-    : EditPasswordRow(
-        imgPath: 'assets/icons/pay_pal.png',
-        title: savedPaypal!.email,
-        onTap: () async {
-          final editedPaypal = await context.push<PaypalModel>(
-            '/paypal',
-            extra: savedPaypal,
-          );
+                            if (currentBooking != null) {
+                              currentBooking!.card = editedCard;
+                              currentBooking!.paypal = null;
+                            }
+                          });
+                        }
 
-          if (editedPaypal != null) {
-            setState(() {
-              savedPaypal = editedPaypal;
-            });
-          }
-        },
-      ),
+                        /* if (editedCard != null) {
+                          setState(() {
+                            savedCard = editedCard;
+                          });
+                        }*/
+                      },
+                    )
+                  : EditPasswordRow(
+                      imgPath: 'assets/icons/pay_pal.png',
+                      title: savedPaypal!.email,
+                      onTap: () async {
+                        final editedPaypal = await context.push<PaypalModel>(
+                          '/paypal',
+                          extra: savedPaypal,
+                        );
+                        if (editedPaypal != null) {
+                          setState(() {
+                            savedPaypal = editedPaypal;
+
+                            if (currentBooking != null) {
+                              currentBooking!.paypal = editedPaypal;
+                              currentBooking!.card = null;
+                            }
+                          });
+                        }
+
+                        /* if (editedPaypal != null) {
+                          setState(() {
+                            savedPaypal = editedPaypal;
+                          });
+                        }*/
+                      },
+                    ),
 
               SizedBox(height: 12),
               SizedBox(
@@ -358,25 +422,24 @@ class _ReserveScreenState extends State<ReserveScreen> {
 
                   DetailsOfPrice(
                     title: 'Total',
+                    isTotal: true,
                     value: '\$${total.toStringAsFixed(2)}',
                   ),
                 ],
               ),
               SizedBox(height: 26),
-           
-if (savedCard != null || savedPaypal != null)
+
+             if (currentBooking?.status != BookingStatusType.checkIn &&
+    (savedCard != null || savedPaypal != null))
   PrimaryBottom(
     name: 'Confirm and Pay',
     width: double.infinity,
     onPressed: () {
-      
       if (currentBooking != null) {
         setState(() {
-         
           currentBooking!.status = BookingStatusType.checkIn;
         });
 
-       
         showModalBottomSheet(
           context: context,
           isScrollControlled: true,
@@ -386,7 +449,6 @@ if (savedCard != null || savedPaypal != null)
       }
     },
   ),
-
               SizedBox(height: 26),
             ],
           ),

@@ -29,11 +29,12 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: [
+            SizedBox(height: 16,),
             Container(
               width: 42.w,
               height: 6.h,
               decoration: BoxDecoration(
-                color: AppColor.greyColor,
+                color: AppColor.lightgrey,
                 borderRadius: BorderRadius.circular(100),
               ),
             ),
@@ -42,8 +43,8 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
             Text(
               'Select Date',
               style: AppTextStyle.authTitle.copyWith(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
             ),
 
@@ -60,7 +61,7 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
                       'Calendar',
                       style: AppTextStyle.NearbyName.copyWith(
                         fontSize: 14,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 2),

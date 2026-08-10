@@ -6,7 +6,7 @@ class CustomDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(width: double.infinity,height: 1,
-              child: Container(color: AppColor.lightgrey,),);
+    return SizedBox(width: double.infinity,height: 0.8,
+              child: Container(color: Color(0xFFE5E7EB),),);
   }
 }

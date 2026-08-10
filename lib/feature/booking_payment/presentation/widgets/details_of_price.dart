@@ -24,10 +24,12 @@ class DetailsOfPrice extends StatelessWidget {
       Text(
         value,
         style: TextStyle(
-          fontSize: isTotal ? 28 : 16,
+          fontSize: isTotal ? 23 : 16,
           color: isTotal ? const Color(0xff6941C6) : Colors.black,
-          fontWeight:
-              isTotal ? FontWeight.bold : FontWeight.w500,
+          fontWeight:FontWeight.bold,
+             
+             
+             // isTotal ? FontWeight.bold : FontWeight.w500,
         ),
       ),
     ],

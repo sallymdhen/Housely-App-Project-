@@ -5,6 +5,7 @@ import 'package:flutter_application_team2/feature/my_booking_screen/data/booking
 import 'package:flutter_application_team2/feature/my_booking_screen/data/booking_status_type.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/presentation/widget/booking_status_badge.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/presentation/widget/cancel_booking_sheet.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class BookingCard extends StatelessWidget {
@@ -18,7 +19,34 @@ class BookingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
+  if (booking.status == BookingStatusType.waitingPayment) {
+    final result = await showModalBottomSheet<bool>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (_) => CancelBookingSheet(
+        onConfirm: () {
+          // YES
+          booking.status = BookingStatusType.cancelled;
+
+          Navigator.pop(context, true);
+
+          onBookingCancelled?.call();
+        },
+      ),
+    );
+
+    // NO
+    if (result == false) {
+      context.go(
+        '/reserve',
+        extra: booking.estate,
+      );
+    }
+  }
+},
+     /*onTap: () {
   if (booking.status == BookingStatusType.waitingPayment) {
     showModalBottomSheet(
       context: context,
@@ -33,7 +61,7 @@ class BookingCard extends StatelessWidget {
       ),
     );
   }
-},
+},*/
       child: Container(
        // margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.only(right: 8),

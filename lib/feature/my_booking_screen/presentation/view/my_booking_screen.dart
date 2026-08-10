@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/core/widgets/custom_app_bar.dart';
+import 'package:flutter_application_team2/feature/booking_payment/presentation/widgets/custom_divider.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/data/booking_manager.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/data/booking_model.dart';
 import 'package:flutter_application_team2/feature/my_booking_screen/data/booking_status_type.dart';
@@ -61,7 +62,7 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
               },
             ),
 
-            const SizedBox(height: 22),
+           const SizedBox(height: 24),
 
             Expanded(
   child: selectedIndex == 1
@@ -85,9 +86,10 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
                       setState(() {});
                     },
                   ),
+                 const SizedBox(height: 10),
 
-                  const Divider(),
-                  const SizedBox(height: 8),
+                   CustomDivider(),
+                  const SizedBox(height: 4),
                 ],
               ),
             ),
@@ -98,7 +100,8 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
                 title: 'Call Agent',
                  icon: 'assets/icons/Call.png',
                  onTap: () {context.push('/chat');},),
-              const Divider(),
+                 SizedBox(height: 8,),
+              const CustomDivider(),
             ],
           ],
         ),

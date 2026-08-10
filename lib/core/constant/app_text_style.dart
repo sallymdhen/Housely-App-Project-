@@ -105,9 +105,9 @@ class AppTextStyle {
   );
 
   static final TextStyle labelTextStyle = TextStyle(
-    fontSize: 14,
+    fontSize: 15,
     fontFamily: AppFonts.inter,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.bold,
     color: AppColor.blackColor,
   );
 

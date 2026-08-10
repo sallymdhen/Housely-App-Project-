@@ -7,11 +7,13 @@ import 'package:flutter_application_team2/feature/home_screen/presentation/widge
 import 'package:flutter_application_team2/feature/home_screen/presentation/widget/near_by_card.dart';
 import 'package:flutter_application_team2/feature/home_screen/presentation/widget/top_location_card.dart';
 import 'package:flutter_application_team2/feature/location/data/location_data.dart';
+import 'package:flutter_application_team2/feature/search_screen/data/service_search/filter_estate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../search_screen/data/model/filter_model.dart';
 import 'package:flutter_application_team2/feature/favorite_screen/data/favorite_data.dart';
 import '../../../search_screen/presentation/widget/search_widget/filter_bottom_sheet.dart';
+
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -23,38 +25,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final estates = EstateData.estates;
   FilterModel filter = const FilterModel();
-  List<EstateModel> nearByEstate = [
-    EstateModel(
-      image: 'assets/image/estate_five.png',
-      name: 'maharani villa ',
-      price: 380,
-      location: 'Benhil , jl.Bendug',
-      route: 4.5,
-    ),
-    EstateModel(
-      image: 'assets/image/estate_seven.jpg',
-      name: 'green valley',
-      price: 210,
-      location: 'Menteny.jl thamirin',
-      route: 4.5,
-    ),
-
-    EstateModel(
-      image: 'assets/image/estate_eight.jpg',
-      name: 'Azure beach front',
-      price: 310,
-      location: 'Ancol,jl.panta india',
-      route: 4.5,
-    ),
-
-    EstateModel(
-      image: 'assets/image/estate_nine.jpg',
-      name: 'Apartement land',
-      price: 520,
-      location: 'jl.tentara palajar',
-      route: 4.7,
-    ),
-  ];
+ 
 
   List<EstateModel> topLoc = [
     EstateModel(
@@ -71,11 +42,27 @@ class _HomeScreenState extends State<HomeScreen> {
     location: 'Taywan'),*/
   ];
   Future<void> openFilterSheet() async {
-    final result = await showFilterBottomSheet(context, initialFilter: filter);
-    if (result != null) {
-      setState(() => filter = result);
-    }
+  final result = await showFilterBottomSheet(
+    context,
+    initialFilter: filter,
+  );
+
+  if (result != null) {
+    setState(() {
+      filter = result;
+    });
+
+    final filteredEstates = EstateFilter.apply(
+      estates: EstateData.estates,
+      filter: filter,
+    );
+
+    context.push(
+      '/filter-results',
+      extra: filteredEstates,
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -270,11 +257,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisExtent: 216,
                       // childAspectRatio: 224 / 164,
                     ),
-                    itemCount: nearByEstate.length,
+                    itemCount: EstateData.nearByEstate.length,
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          NearByCard(estate: nearByEstate[index]),
+                          NearByCard(estate: EstateData.nearByEstate[index]),
                           SizedBox(height: 12),
                           Container(
                             height: 1,

@@ -21,7 +21,7 @@ class BookingActionTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: 8,
+          vertical: 6,
          // horizontal: 24,
         ),
         child: Row(

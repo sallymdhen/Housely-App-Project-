@@ -6,6 +6,7 @@ import 'package:flutter_application_team2/core/widgets/custom_app_bar.dart';
 import 'package:flutter_application_team2/core/widgets/primary_bottom.dart';
 import 'package:flutter_application_team2/feature/auth/presentation/widget/custom_field.dart';
 import 'package:flutter_application_team2/feature/booking_payment/data/card_model.dart';
+import 'package:flutter_application_team2/feature/booking_payment/presentation/widgets/credit_card_preview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -57,13 +58,20 @@ void initState() {
             key: _formKey,
             child: Column(
               children: [
-                Image.asset(
-                  'assets/icons/Credit Card.png',
-                  width: double.infinity,
-                  height: 205.h,
-                  fit: BoxFit.cover,
-                ),
-                SizedBox(height: 40),
+                CreditCardPreview(
+  nameController: nameController,
+  cardNumberController: cardNumberController,
+  expirdController: expirdController,
+),
+               /* ClipRRect(borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    'assets/icons/Credit Card.png',
+                    width: double.infinity,
+                    height: 205.h,
+                    fit: BoxFit.contain,
+                  ),
+                ),*/
+                SizedBox(height: 35),
                 CustomTextFormField(
                   label: 'Name',
                   hintText: 'Brooklyn Simmo',
