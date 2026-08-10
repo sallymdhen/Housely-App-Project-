@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/feature/auth/presentation/widget/auth_app_bar.dart';
+import 'package:flutter_application_team2/feature/location/data/location_data.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+
 import '../../../../core/widgets/bottom_button.dart';
 import '../widgets/location_card.dart';
 import '../widgets/search_location_field.dart';
 
 class ChooseLocationScreen extends StatefulWidget {
-  const ChooseLocationScreen({super.key});
+  final bool useCurrentLocation;
+
+  const ChooseLocationScreen({super.key, required this.useCurrentLocation});
 
   @override
   State<ChooseLocationScreen> createState() => _ChooseLocationScreenState();
@@ -22,19 +28,51 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
   bool isLoading = true;
 
   LatLng currentLocation = const LatLng(35.525, 35.786);
+  LatLng? selectedLocation;
+  BitmapDescriptor? customMarker;
 
-  String address = "Your current location";
+  String address = "Select a location";
 
   @override
   void initState() {
     super.initState();
-    getCurrentLocation();
+
+    loadMarker();
+
+    if (widget.useCurrentLocation) {
+      getCurrentLocation();
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> loadMarker() async {
+    customMarker = await BitmapDescriptor.asset(
+      const ImageConfiguration(size: Size(64, 64)),
+      "assets/icons/location_pin.png",
+    );
+
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Future<void> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
     if (!serviceEnabled) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Please turn on location services.")),
+        );
+
+        setState(() {
+          isLoading = false;
+        });
+      }
+
       return;
     }
 
@@ -44,21 +82,89 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
       permission = await Geolocator.requestPermission();
     }
 
-    Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Location permission is required.")),
+        );
+
+        setState(() {
+          isLoading = false;
+        });
+      }
+
+      return;
+    }
+
+    final Position position = await Geolocator.getCurrentPosition();
 
     currentLocation = LatLng(position.latitude, position.longitude);
 
-    setState(() {
-      isLoading = false;
-    });
+    selectedLocation = currentLocation;
 
-    mapController?.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(target: currentLocation, zoom: 16),
-      ),
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+      position.latitude,
+      position.longitude,
     );
+
+    if (placemarks.isNotEmpty) {
+      final place = placemarks.first;
+
+      address =
+          place.name ?? place.locality ?? place.country ?? "Current location";
+    }
+
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
+
+    if (mapController != null) {
+      mapController!.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: currentLocation, zoom: 16),
+        ),
+      );
+    }
+  }
+
+  Future<void> selectLocation(LatLng location) async {
+    selectedLocation = location;
+
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+      location.latitude,
+      location.longitude,
+    );
+
+    if (placemarks.isNotEmpty) {
+      final place = placemarks.first;
+
+      setState(() {
+        address =
+            place.name ??
+            place.locality ??
+            place.country ??
+            "Selected location";
+
+        selectedLocation = location;
+      });
+    }
+  }
+
+  void chooseLocation() {
+    if (selectedLocation == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please select a location first.")),
+      );
+
+      return;
+    }
+
+    LocationData.selectedAddress = address;
+
+    context.go('/home');
   }
 
   @override
@@ -73,18 +179,35 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                     target: currentLocation,
                     zoom: 16,
                   ),
-                  myLocationEnabled: true,
+
+                  onTap: selectLocation,
+
+                  myLocationEnabled: false,
                   myLocationButtonEnabled: false,
                   zoomControlsEnabled: false,
+
                   onMapCreated: (controller) {
                     mapController = controller;
+
+                    if (widget.useCurrentLocation && selectedLocation != null) {
+                      controller.animateCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(target: selectedLocation!, zoom: 16),
+                        ),
+                      );
+                    }
                   },
-                  markers: {
-                    Marker(
-                      markerId: const MarkerId("current_location"),
-                      position: currentLocation,
-                    ),
-                  },
+
+                  markers: selectedLocation == null
+                      ? {}
+                      : {
+                          Marker(
+                            markerId: const MarkerId("selected_location"),
+                            position: selectedLocation!,
+                            icon:
+                                customMarker ?? BitmapDescriptor.defaultMarker,
+                          ),
+                        },
                 ),
 
                 SafeArea(
@@ -95,7 +218,7 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                     ),
                     child: Column(
                       children: [
-                        Row(children: [const AuthAppBar()]),
+                        const Row(children: [AuthAppBar()]),
 
                         SizedBox(height: 18.h),
 
@@ -109,9 +232,7 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
 
                         BottomButton(
                           title: "Choose location",
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+                          onPressed: chooseLocation,
                         ),
                       ],
                     ),

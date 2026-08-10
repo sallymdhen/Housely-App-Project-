@@ -1,3 +1,8 @@
+import 'package:flutter_application_team2/feature/details_screen/presentation/view/details_screen.dart';
+import 'package:flutter_application_team2/feature/explore_screen/presentation/view/explore_screen.dart';
+import 'package:flutter_application_team2/feature/favorite_screen/presentation/view/favorite_screen.dart';
+import 'package:flutter_application_team2/feature/home_screen/data/estate_model.dart';
+import 'package:flutter_application_team2/feature/home_screen/presentation/view/home_screen.dart';
 import 'package:flutter_application_team2/feature/location/presentation/view/choose_location_screen.dart';
 import 'package:flutter_application_team2/feature/location/presentation/view/location_permission_screen.dart';
 import 'package:flutter_application_team2/feature/notification/presentation/view/empty_notification_screen.dart';
@@ -15,7 +20,7 @@ import 'package:flutter_application_team2/feature/splash/presentation/view/splas
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: '/splash',
+    initialLocation: '/writeReview',
     routes: [
       // GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
 
@@ -29,31 +34,30 @@ class AppRouter {
       //   builder: (context, state) => const EditProfileScreen(),
       // ),
 
-      // ShellRoute(
-      //   builder: (context, state, child) {
-      //     return MainScreen(child: child);
-      //   },
-      //   routes: [
-      //     GoRoute(
-      //       path: '/home',
-      //       builder: (context, state) => HomeScreen(),
-      //       routes: [
-      //         GoRoute(
-      //           path: 'popular',
-      //           builder: (context, state) => const PopularScreen(),
-      //         ),
-      //       ],
-      //     ),
+      //  ShellRoute(
+      //    builder: (context, state, child) {
+      //    return MainScreen(child: child);
+      //    },
+      //  routes: [
+      GoRoute(
+        path: '/home',
+        builder: (context, state) => HomeScreen(),
+        //  routes: [
+        //    GoRoute(
+        //      path: 'popular',
+        //      builder: (context, state) => const PopularScreen(),
+        //    ),
+        //  ],
+      ),
 
-      //     GoRoute(
-      //       path: '/explore',
-      //       builder: (context, state) => const ExploreScreen(),
-      //     ),
-
-      //     GoRoute(
-      //       path: '/favorite',
-      //       builder: (context, state) => const FavoriteScreen(),
-      //     ),
+      GoRoute(
+        path: '/explore',
+        builder: (context, state) => const ExploreScreen(),
+      ),
+      GoRoute(
+        path: '/favorite',
+        builder: (context, state) => const FavoriteScreen(),
+      ),
 
       //     GoRoute(
       //       path: '/my-booking',
@@ -85,12 +89,11 @@ class AppRouter {
       //   path: '/filtter',
       //   builder: (context, state) => const FiltterScreen(),
       // ),
-
-      // GoRoute(
-      //   path: '/details',
-      //   builder: (context, state) =>
-      //       DetailsScreen(estate: state.extra as EstateModel),
-      // ),
+      GoRoute(
+        path: '/details',
+        builder: (context, state) =>
+            DetailsScreen(estate: state.extra as EstateModel),
+      ),
       GoRoute(
         path: '/splash',
         builder: (context, state) => const SplashScreen(),
@@ -128,7 +131,11 @@ class AppRouter {
 
       GoRoute(
         path: '/chooseLocation',
-        builder: (context, state) => const ChooseLocationScreen(),
+        builder: (context, state) {
+          final useCurrentLocation = state.extra as bool? ?? false;
+
+          return ChooseLocationScreen(useCurrentLocation: useCurrentLocation);
+        },
       ),
 
       /*GoRoute(

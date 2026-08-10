@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/core/widgets/bottom_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/constant/app_color.dart';
 import '../widget/auth_app_bar.dart';
@@ -16,6 +17,7 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   int selectedIndex = -1;
+  String userEmail = '';
 
   void _continue() {
     if (selectedIndex == -1) {
@@ -26,6 +28,20 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     }
     context.push('/verifyEmail');
     // Navigator.pushNamed(context, AppRoutes.verifyEmail);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserEmail();
+  }
+
+  Future<void> loadUserEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      userEmail = prefs.getString('user_email') ?? '';
+    });
   }
 
   @override
@@ -82,7 +98,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       ContactCard(
                         icon: 'assets/icons/Message.png',
                         title: "Via email",
-                        value: "mu***@gmail.com",
+                        value: userEmail,
                         selected: selectedIndex == 1,
                         onTap: () {
                           setState(() {

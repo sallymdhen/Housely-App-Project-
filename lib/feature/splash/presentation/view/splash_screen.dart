@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,8 +17,18 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Timer(const Duration(seconds: 6), () {
-      context.go('/onboarding');
+    Timer(const Duration(seconds: 6), () async {
+      final prefs = await SharedPreferences.getInstance();
+
+      final bool onboardingSeen = prefs.getBool('onboarding_seen') ?? false;
+
+      if (!mounted) return;
+
+      if (onboardingSeen) {
+        context.go('/home');
+      } else {
+        context.go('/onboarding');
+      }
     });
   }
 

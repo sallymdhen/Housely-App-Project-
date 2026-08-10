@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_team2/core/constant/app_color.dart';
 import 'package:flutter_application_team2/core/constant/app_text_style.dart';
 
 class ReviewTextBox extends StatelessWidget {
@@ -16,6 +17,11 @@ class ReviewTextBox extends StatelessWidget {
       decoration: const InputDecoration(
         hintText:
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard  ",
+        hintStyle: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w200,
+          color: AppColor.textSecondary,
+        ),
 
         border: InputBorder.none,
 
@@ -23,8 +29,9 @@ class ReviewTextBox extends StatelessWidget {
       ),
 
       style: AppTextStyle.hintText.copyWith(
-        fontSize: 10,
+        fontSize: 12,
         fontWeight: FontWeight.w400,
+        color: AppColor.greyColor,
       ),
     );
   }

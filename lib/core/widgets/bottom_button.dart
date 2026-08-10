@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/core/constant/app_color.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BottomButton extends StatelessWidget {
   final String title;
@@ -9,6 +8,11 @@ class BottomButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final Color? borderColor;
+  final double? elevation;
+
+  final Color? shadowColor;
+  final double? shadowBlurRadius;
+  final double? shadowSpreadRadius;
 
   const BottomButton({
     super.key,
@@ -17,18 +21,34 @@ class BottomButton extends StatelessWidget {
     this.backgroundColor,
     this.textColor,
     this.borderColor,
+    this.elevation,
+    this.shadowColor,
+    this.shadowBlurRadius,
+    this.shadowSpreadRadius,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: double.infinity,
       height: 50,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: shadowColor != null
+            ? [
+                BoxShadow(
+                  color: shadowColor!,
+                  blurRadius: shadowBlurRadius ?? 0,
+                  spreadRadius: shadowSpreadRadius ?? 0,
+                  offset: const Offset(0, 6),
+                ),
+              ]
+            : null,
+      ),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          shadowColor: AppColor.primaryColor,
           backgroundColor: backgroundColor ?? AppColor.primaryColor,
           foregroundColor: textColor ?? Colors.white,
           shape: RoundedRectangleBorder(

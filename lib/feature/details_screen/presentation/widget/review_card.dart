@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_application_team2/core/constant/app_color.dart';
+//import 'package:flutter_application_team2/core/constant/app_color.dart';
 import 'package:flutter_application_team2/core/constant/app_fonts.dart';
 import 'package:flutter_application_team2/core/constant/app_text_style.dart';
 import 'package:flutter_application_team2/feature/details_screen/data/review_model.dart';
@@ -26,12 +28,19 @@ class ReviewCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20.r),
-            child: Image.asset(
-              review.image,
-              width: 40.w,
-              height: 40.w,
-              fit: BoxFit.cover,
-            ),
+            child: review.image.startsWith('assets/')
+                ? Image.asset(
+                    review.image,
+                    width: 40.w,
+                    height: 40.w,
+                    fit: BoxFit.cover,
+                  )
+                : Image.file(
+                    File(review.image),
+                    width: 40.w,
+                    height: 40.w,
+                    fit: BoxFit.cover,
+                  ),
           ),
 
           SizedBox(width: 12.w),
@@ -63,7 +72,7 @@ class ReviewCard extends StatelessWidget {
                           size: 14.sp,
                           color: index < review.rating
                               ? Colors.amber
-                              : Colors.amber.withOpacity(0.3),
+                              : Colors.amber.withValues(alpha: 0.3),
                         ),
                       ),
                     ),

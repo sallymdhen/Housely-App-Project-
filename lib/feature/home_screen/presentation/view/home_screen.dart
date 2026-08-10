@@ -7,10 +7,10 @@ import 'package:flutter_application_team2/feature/home_screen/presentation/widge
 import 'package:flutter_application_team2/feature/home_screen/presentation/widget/near_by_card.dart';
 import 'package:flutter_application_team2/feature/home_screen/presentation/widget/top_location_card.dart';
 import 'package:flutter_application_team2/feature/location/data/location_data.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+//import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../search_screen/data/model/filter_model.dart';
-import 'package:flutter_application_team2/feature/favorite_screen/data/favorite_data.dart';
+//import 'package:flutter_application_team2/feature/favorite_screen/data/favorite_data.dart';
 import '../../../search_screen/presentation/widget/search_widget/filter_bottom_sheet.dart';
 
 class HomeScreen extends StatefulWidget {

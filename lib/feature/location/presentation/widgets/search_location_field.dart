@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_team2/core/constant/app_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchLocationField extends StatelessWidget {
@@ -24,15 +23,22 @@ class SearchLocationField extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
+        textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           border: InputBorder.none,
-          prefixIcon: Icon(
-            Icons.search,
-            color: AppColor.primaryColor,
-            size: 30.sp,
-          ),
           hintText: "Search Location",
           hintStyle: TextStyle(color: Colors.grey, fontSize: 18.sp),
+          prefixIcon: SizedBox(
+            width: 52.w,
+            child: Center(
+              child: Image.asset(
+                'assets/icons/Hide.png',
+                width: 24.w,
+                height: 24.w,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
         ),
       ),
     );

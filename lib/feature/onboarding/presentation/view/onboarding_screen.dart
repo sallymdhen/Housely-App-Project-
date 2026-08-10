@@ -6,6 +6,7 @@ import 'package:flutter_application_team2/feature/onboarding/presentation/widget
 import 'package:flutter_application_team2/feature/onboarding/presentation/widget/onboarding_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -33,14 +34,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     super.dispose();
   }
 
-  void nextPage() {
+  Future<void> nextPage() async {
     if (currentIndex < onboardingData.length - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
-
         curve: Curves.easeInOut,
       );
     } else {
+      final prefs = await SharedPreferences.getInstance();
+
+      await prefs.setBool('onboarding_seen', true);
+
+      if (!mounted) return;
+
       context.go('/permissionLocation');
     }
   }

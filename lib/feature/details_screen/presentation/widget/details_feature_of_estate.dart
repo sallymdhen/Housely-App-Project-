@@ -19,17 +19,20 @@ class DetailsFeatureOfEstate extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: AppTextStyle.searchProperty.copyWith(fontSize: 12,)),
+        Text(title, style: AppTextStyle.searchProperty.copyWith(fontSize: 12)),
         SizedBox(height: 4),
         Row(
           children: [
-            if (member != null) member!,
+            ?member,
             SizedBox(width: 2.w),
 
             //Image.asset(img,width:16.w ,height:16.w ,),
             Text(
               valueOfTitle,
-              style: AppTextStyle.locationName.copyWith(fontSize: 12,fontWeight: FontWeight.w800),
+              style: AppTextStyle.locationName.copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ],
         ),

@@ -10,7 +10,7 @@ class SkipButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        context.go('/hpme');
+        context.go('/home');
       },
 
       style: TextButton.styleFrom(
