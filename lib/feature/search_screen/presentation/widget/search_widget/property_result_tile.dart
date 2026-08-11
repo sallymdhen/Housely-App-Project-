@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_team2/feature/home_screen/data/estate_model.dart';
 
 import '../../../../../core/constant/app_color.dart';
-import '../../../data/model/property_model.dart';
 import 'searchTheme.dart';
 
 class PropertyResultTile extends StatelessWidget {
-  final PropertyModel property;
+  final EstateModel property;
   final String highlight;
   final VoidCallback? onTap;
 
@@ -38,10 +38,10 @@ class PropertyResultTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(property.name, style: AppTextStyles.body),
+                  Text(property.name ?? '', style: AppTextStyles.body),
                   const SizedBox(height: 2),
                   _HighlightedLocation(
-                    text: property.location,
+                    text: property.location ?? '',
                     highlight: highlight,
                   ),
                 ],

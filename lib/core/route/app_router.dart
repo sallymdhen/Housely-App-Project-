@@ -12,7 +12,7 @@ import 'package:flutter_application_team2/feature/booking_payment/presentation/v
 import 'package:flutter_application_team2/feature/booking_payment/presentation/widgets/calendar_bottom_sheet.dart';
 import 'package:flutter_application_team2/feature/booking_payment/presentation/widgets/succes_pay_sheet.dart';
 import 'package:flutter_application_team2/feature/details_screen/presentation/view/details_screen.dart';
-import 'package:flutter_application_team2/feature/explore_screen/presentation/view/explore_screen.dart';
+//import 'package:flutter_application_team2/feature/explore_screen/presentation/view/explore_screen.dart';
 import 'package:flutter_application_team2/feature/favorite_screen/presentation/view/favorite_screen.dart';
 import 'package:flutter_application_team2/feature/home_screen/data/estate_model.dart';
 import 'package:flutter_application_team2/feature/home_screen/presentation/view/home_screen.dart';
@@ -39,7 +39,7 @@ import 'package:flutter_application_team2/feature/splash/presentation/view/splas
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: '/home',
+    initialLocation: '/splash',
     routes: [
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
 
@@ -69,10 +69,10 @@ class AppRouter {
             ],
           ),
 
-          /*  GoRoute(
+            GoRoute(
             path: '/explore',
             builder: (context, state) => const ChooseLocationScreen(),
-          ),*/
+          ),
           GoRoute(
             path: '/favorite',
             builder: (context, state) => const FavoriteScreen(),
@@ -175,6 +175,17 @@ class AppRouter {
       ),
 
       GoRoute(
+  path: '/filter-result',
+  builder: (context, state) {
+    final estates = state.extra as List<EstateModel>;
+
+    return FilterResultScreen(
+      estates: estates,
+    );
+  },
+),
+
+      GoRoute(
         path: '/paypal',
         builder: (context, state) {
           return PaypalScreen(paypal: state.extra as PaypalModel?);
@@ -211,16 +222,6 @@ GoRoute(
         path: '/review',
         builder: (context, state) => const WriteReviewScreen(),
       ),
-
-      GoRoute(
-  path: '/filter-results',
-  builder: (context, state) {
-final estates = state.extra as List<EstateModel>;
-    return FilterResultScreen(
-      estates: estates,
-    );
-  },
-),
 
 
 

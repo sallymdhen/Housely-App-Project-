@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_team2/feature/home_screen/data/estate_data.dart';
+import 'package:flutter_application_team2/feature/search_screen/presentation/view/filter_result_screen.dart';
 
 import '../../../data/model/filter_model.dart';
 import 'filter_bottom_sheet.dart';
@@ -41,6 +43,45 @@ mixin FilterBottomSheetLogic on State<FilterBottomSheet> {
   }
 
   void apply() {
-    Navigator.of(context).pop(filter);
-  }
+  final filteredEstates = EstateData.estates.where((estate) {
+    // Property Purpose
+    final purposeMatches =
+        filter.purposes.isEmpty ||
+        (estate.purpose != null && filter.purposes.contains(estate.purpose));
+
+    // Property Type
+    final typeMatches =
+        filter.types.isEmpty ||
+        (estate.type != null && filter.types.contains(estate.type));
+
+    // Price
+    final price = estate.price ?? 0;
+
+    final priceMatches =
+        price >= filter.priceRange.start &&
+        price <= filter.priceRange.end;
+
+    // Facilities
+    final facilitiesMatch =
+        filter.facilityIds.isEmpty ||
+        filter.facilityIds.every(
+          (facility) => estate.facilityIds.contains(facility),
+        );
+
+    return purposeMatches &&
+        typeMatches &&
+        priceMatches &&
+        facilitiesMatch;
+  }).toList();
+
+  Navigator.of(context).pop();
+
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (_) => FilterResultScreen(
+        estates: filteredEstates,
+      ),
+    ),
+  );
+}
 }

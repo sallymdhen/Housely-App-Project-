@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/core/constant/app_color.dart';
+import 'package:flutter_application_team2/feature/home_screen/data/estate_data.dart';
+import 'package:flutter_application_team2/feature/home_screen/data/estate_model.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../data/model/SearchResultsBody.dart';
-import '../../data/model/property_model.dart';
-import '../../data/model/recent_search_model.dart';
+import '../../data/recent_search_data.dart';
 import '../widget/search_widget/search_empty_state.dart';
 import '../widget/search_widget/search_input_field.dart';
 
@@ -16,35 +17,17 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final TextEditingController _controller = TextEditingController(
-    text: 'Yogya',
-  );
-
-  static const List<RecentSearchModel> _recentSearches = [
-    RecentSearchModel(title: 'Ambarukmo Plasa'),
-  ];
-
-  static const List<PropertyModel> _allProperties = [
-    PropertyModel(
-      name: 'Greenhost Boutique Hotel',
-      location: 'Yogyakarta, Indonesia',
-    ),
-    PropertyModel(
-      name: 'Grand Keisha Yogyakarta',
-      location: 'Yogyakarta, Indonesia',
-    ),
-    PropertyModel(name: 'Jogja Village', location: 'Yogyakarta, Indonesia'),
-  ];
+  final TextEditingController _controller = TextEditingController();
 
   String get _query => _controller.text.trim();
 
-  List<PropertyModel> get _filteredProperties {
-    if (_query.isEmpty) return _allProperties;
-    return _allProperties
+  List<EstateModel> get _filteredProperties {
+    if (_query.isEmpty) return [];
+    return EstateData.estates
         .where(
           (p) =>
-              p.name.toLowerCase().contains(_query.toLowerCase()) ||
-              p.location.toLowerCase().contains(_query.toLowerCase()),
+              (p.name ?? '').toLowerCase().contains(_query.toLowerCase()) ||
+              (p.location ?? '').toLowerCase().contains(_query.toLowerCase()),
         )
         .toList();
   }
@@ -61,6 +44,15 @@ class _SearchScreenState extends State<SearchScreen> {
         context.go('/home');
       }
     }
+  }
+
+  Future<void> _openDetails(
+    EstateModel estate, {
+    required bool saveToRecent,
+  }) async {
+    if (saveToRecent) RecentSearchData.add(estate);
+    await context.push('/details', extra: estate);
+    if (mounted) setState(() {}); // عشان قائمة الـ Recent تتحدث لما ترجع
   }
 
   @override
@@ -86,13 +78,25 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
             Expanded(
-              child: _hasResults
+              child: _query.isEmpty
                   ? SearchResultsBody(
                       query: _query,
-                      recentSearches: _recentSearches,
-                      results: _filteredProperties,
+                      recentSearches: RecentSearchData.recent,
+                      results: const [],
+                      onRecentTap: (e) => _openDetails(e, saveToRecent: false),
+                      onResultTap: (e) => _openDetails(e, saveToRecent: true),
                     )
-                  : const Center(child: SearchEmptyState()),
+                  : (_hasResults
+                        ? SearchResultsBody(
+                            query: _query,
+                            recentSearches: const [],
+                            results: _filteredProperties,
+                            onRecentTap: (e) =>
+                                _openDetails(e, saveToRecent: false),
+                            onResultTap: (e) =>
+                                _openDetails(e, saveToRecent: true),
+                          )
+                        : const Center(child: SearchEmptyState())),
             ),
           ],
         ),
