@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_team2/feature/location/data/location_data.dart';
 import 'package:flutter_application_team2/core/constant/app_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -23,8 +24,20 @@ class _ExploreScreenState extends State<ExploreScreen> {
   @override
   void initState() {
     super.initState();
-    getCurrentLocation();
+   loadSelectedLocation();
   }
+
+  void loadSelectedLocation() {
+  final location =
+      LocationData.selectedLocation ??
+      const LatLng(35.525, 35.786);
+
+  setState(() {
+    currentLocation = location;
+    isLoading = false;
+    markers = createMarkers(location);
+  });
+}
 
   Future<void> getCurrentLocation() async {
     try {

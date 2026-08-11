@@ -13,7 +13,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
     int currentIndex = 0;
 
-    if (location.startsWith('/chooseLocation')) {
+    if (location.startsWith('/explore')) {
       currentIndex = 1;
     } else if (location.startsWith('/favorite')) {
       currentIndex = 2;

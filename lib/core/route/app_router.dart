@@ -12,6 +12,7 @@ import 'package:flutter_application_team2/feature/booking_payment/presentation/v
 import 'package:flutter_application_team2/feature/booking_payment/presentation/widgets/calendar_bottom_sheet.dart';
 import 'package:flutter_application_team2/feature/booking_payment/presentation/widgets/succes_pay_sheet.dart';
 import 'package:flutter_application_team2/feature/details_screen/presentation/view/details_screen.dart';
+import 'package:flutter_application_team2/feature/explore_screen/presentation/view/explore_screen.dart';
 //import 'package:flutter_application_team2/feature/explore_screen/presentation/view/explore_screen.dart';
 import 'package:flutter_application_team2/feature/favorite_screen/presentation/view/favorite_screen.dart';
 import 'package:flutter_application_team2/feature/home_screen/data/estate_model.dart';
@@ -69,9 +70,9 @@ class AppRouter {
             ],
           ),
 
-            GoRoute(
+          GoRoute(
             path: '/explore',
-            builder: (context, state) => const ChooseLocationScreen(),
+            builder: (context, state) => const ExploreScreen(),
           ),
           GoRoute(
             path: '/favorite',
@@ -96,16 +97,13 @@ class AppRouter {
       ),
 
       //GoRoute(
-        //path: '/chat',
-        //builder: (context, state) => const ListChatScreen(),
+      //path: '/chat',
+      //builder: (context, state) => const ListChatScreen(),
       //),
-
       GoRoute(
         path: '/search',
         builder: (context, state) => const SearchScreen(),
       ),
-
-      
 
       GoRoute(
         path: '/details',
@@ -147,9 +145,9 @@ class AppRouter {
         path: '/permissionLocation',
         builder: (context, state) => const LocationPermissionScreen(),
       ),
-
+/////////////////////////////////////////////////////////////////////////////////////////////////
       GoRoute(
-        path: '/explore',
+        path: '/chooseLocation',
         builder: (context, state) => const ChooseLocationScreen(),
       ),
 
@@ -175,15 +173,13 @@ class AppRouter {
       ),
 
       GoRoute(
-  path: '/filter-result',
-  builder: (context, state) {
-    final estates = state.extra as List<EstateModel>;
+        path: '/filter-result',
+        builder: (context, state) {
+          final estates = state.extra as List<EstateModel>;
 
-    return FilterResultScreen(
-      estates: estates,
-    );
-  },
-),
+          return FilterResultScreen(estates: estates);
+        },
+      ),
 
       GoRoute(
         path: '/paypal',
@@ -196,49 +192,33 @@ class AppRouter {
         path: '/reserveSucces',
         builder: (context, state) => const SuccesPaySheet(),
       ),
-      GoRoute(//
+      GoRoute(
+        //
         path: '/message',
         builder: (context, state) => const MessageScreen(),
       ),
 
       GoRoute(
-  path: '/chat',
-  builder: (context, state) {
-    final extraData = state.extra as Map<String, dynamic>?;
+        path: '/chat',
+        builder: (context, state) {
+          final extraData = state.extra as Map<String, dynamic>?;
 
-    return ChatDetailScreen(
-      userName: extraData?['userName'] ?? '',
-      userAvatar: extraData?['userAvatar'] ?? '',
-    );
-  },
-),
+          return ChatDetailScreen(
+            userName: extraData?['userName'] ?? '',
+            userAvatar: extraData?['userAvatar'] ?? '',
+          );
+        },
+      ),
 
       GoRoute(
- path: '/DeleteConfirmationSheet',
- builder: (context, state) => DeleteConfirmationSheet(),
-),
+        path: '/DeleteConfirmationSheet',
+        builder: (context, state) => DeleteConfirmationSheet(),
+      ),
 
-GoRoute(
+      GoRoute(
         path: '/review',
         builder: (context, state) => const WriteReviewScreen(),
       ),
-
-
-
-
-
-
-
     ],
   );
-
-
-
-
-
-
-
-
-
-
 }

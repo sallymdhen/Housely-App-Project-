@@ -90,7 +90,7 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                     target: currentLocation,
                     zoom: 16,
                   ),
-                  onTap: (LatLng location) async {
+                 /* onTap: (LatLng location) async {
   selectedLocation = location;
 
   List<Placemark> placemarks = await placemarkFromCoordinates(
@@ -105,6 +105,27 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
       address = place.name ?? place.locality ?? place.country ?? "";
       selectedLocation = location;
     });
+  }
+},*/onTap: (LatLng location) async {
+  setState(() {
+    selectedLocation = location;
+  });
+
+  try {
+    final placemarks = await placemarkFromCoordinates(
+      location.latitude,
+      location.longitude,
+    );
+
+    if (placemarks.isNotEmpty) {
+      final place = placemarks.first;
+
+      setState(() {
+        address = place.name ?? place.locality ?? place.country ?? "";
+      });
+    }
+  } catch (e) {
+    debugPrint('Geocoding error: $e');
   }
 },
 
@@ -158,6 +179,7 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                           title: "Choose location",
                           onPressed: () {
                             LocationData.selectedAddress = address;
+                              LocationData.selectedLocation = selectedLocation;
                             context.go('/home');
                           
                           },

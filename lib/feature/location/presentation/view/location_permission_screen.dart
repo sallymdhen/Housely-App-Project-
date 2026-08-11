@@ -87,7 +87,7 @@ class LocationPermissionScreen extends StatelessWidget {
                   title: 'Use current location',
                   
                     onPressed: () {
-                    context.go( '/explore');
+                    context.go( '/chooseLocation');
                    
                   },
                 ),
