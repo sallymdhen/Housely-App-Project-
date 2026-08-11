@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_team2/core/constant/app_color.dart';
 import 'package:flutter_application_team2/core/constant/app_fonts.dart';
-import 'package:flutter_application_team2/feature/notification/data/model/notification_model.dart';
-
+import 'package:flutter_application_team2/feature/notification/presentation/model/notification_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationItem extends StatelessWidget {
@@ -10,154 +9,142 @@ class NotificationItem extends StatelessWidget {
 
   const NotificationItem({super.key, required this.notification});
 
-  // ============================================================
-  // ضعي هنا مسارات الصور الموجودة عندك
-  // ============================================================
-
-  // صورة أيقونة الجرس
-  static const String notificationIcon =  'assets/icons/notification_icon.png';
-
-  // صورة أيقونة الشخص
-  static const String personIcon = 'assets/icons/prof_notification.png';
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
+      padding: EdgeInsets.symmetric(horizontal: 23.w, vertical: 5.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 60.h,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+          // ICON / IMAGE
+          if (notification.image != null)
+            ClipOval(
+              child: Image.asset(
+                notification.image!,
+                width: 36.w,
+                height: 36.w,
+                fit: BoxFit.cover,
+              ),
+            )
+          else
+            Container(
+              width: 36.w,
+              height: 36.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xFFF2F4F7),
+              ),
+              child: Icon(
+                notification.showNotificationIcon
+                    ? Icons.notifications_none_outlined
+                    : Icons.person_outline,
+                size: 18.sp,
+                color: const Color(0xFF182230),
+              ),
+            ),
+
+          SizedBox(width: 12.w),
+
+          // TEXT + DIVIDER
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(width: 40, height: 40, child: _buildLeading()),
+                if (notification.name != null)
+                  _buildNameAndMessage()
+                else
+                  _buildMessage(),
 
-                SizedBox(width: 15),
+                SizedBox(height: 10.h),
 
-                Expanded(child: _buildText()),
+                // الخط
+                Container(
+                  height: 1,
+                  width: double.infinity,
+                  color: const Color(0xFFE4E7EC),
+                ),
               ],
             ),
-          ),
-
-          // الخط
-          Padding(
-            padding: EdgeInsets.only(left: 60.w),
-            child: Container(height: 1.h, color: const Color(0xFFE9E9E9)),
           ),
         ],
       ),
     );
   }
 
-  // ============================================================
-  // LEADING
-  // ============================================================
+  // NAME + MESSAGE
 
-  Widget _buildLeading() {
-    // ----------------------------------------------------------
-    // صورة الشخص
-    // ----------------------------------------------------------
-
-    if (notification.isMessage && notification.image != null) {
-      return ClipOval(
-        child: Image.asset(
-          notification.image!,
-          width: 52.w,
-          height: 52.w,
-          fit: BoxFit.cover,
-        ),
-      );
-    }
-
-    // ----------------------------------------------------------
-    // صورة أيقونة الجرس
-    // ----------------------------------------------------------
-
-    if (notification.showNotificationIcon) {
-      return SizedBox(
-        width: 68.w,
-        height: 68.w,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Image.asset(
-              notificationIcon,
-              width: 68.w,
-              height: 68.w,
-              fit: BoxFit.contain,
+  Widget _buildNameAndMessage() {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: '${notification.name} ',
+            style: TextStyle(
+              fontFamily: AppFonts.inter,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xFF182230),
             ),
-          ],
-        ),
-      );
-    }
-
-    // ----------------------------------------------------------
-    // صورة أيقونة الشخص
-    // ----------------------------------------------------------
-
-    return Image.asset(
-      personIcon,
-      width: 68.w,
-      height: 68.w,
-      fit: BoxFit.contain,
+          ),
+          TextSpan(
+            text: notification.message,
+            style: TextStyle(
+              fontFamily: AppFonts.inter,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w400,
+              color: AppColor.greyColor,
+              height: 1.4,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  // ============================================================
-  // TEXT
-  // ============================================================
+  // MESSAGE
 
-  Widget _buildText() {
-    // ----------------------------------------------------------
-    // Message
-    // ----------------------------------------------------------
-    if (notification.isMessage && notification.name != null) {
-      return RichText(
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: notification.name!,
-              style: TextStyle(
-                fontFamily: AppFonts.inter,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w600,
-                color: const Color(0xFF171717),
-                height: 1.4,
-              ),
-            ),
-
-            TextSpan(
-              text: ' ${notification.message}',
-              style: TextStyle(
-                fontFamily: AppFonts.inter,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w400,
-                color: AppColor.greyColor,
-                height: 1.4,
-              ),
-            ),
-          ],
+  Widget _buildMessage() {
+    // إذا لم يوجد نص Bold
+    if (notification.boldMessage == null) {
+      return Text(
+        notification.message,
+        style: TextStyle(
+          fontFamily: AppFonts.inter,
+          fontSize: 11.sp,
+          fontWeight: FontWeight.w400,
+          color: AppColor.greyColor,
+          height: 1.4,
         ),
       );
     }
 
-    // ----------------------------------------------------------
-    // Notification عادية
-    // ----------------------------------------------------------
+    // النص مقسوم إلى قسم عادي + قسم Bold
+    final normalText = notification.message.replaceFirst(
+      notification.boldMessage!,
+      '',
+    );
 
-    return Text(
-      notification.message,
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(
-        fontFamily: AppFonts.inter,
-        fontSize: 12.sp,
-        fontWeight: FontWeight.w400,
-        color: AppColor.greyColor,
-        height: 1.4,
+    return RichText(
+      text: TextSpan(
+        style: TextStyle(
+          fontFamily: AppFonts.inter,
+          fontSize: 11.sp,
+          fontWeight: FontWeight.w400,
+          color: AppColor.greyColor,
+          height: 1.4,
+        ),
+        children: [
+          TextSpan(text: normalText),
+          TextSpan(
+            text: notification.boldMessage,
+            style: TextStyle(
+              fontFamily: AppFonts.inter,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w700,
+              color: const Color(0xFF182230),
+            ),
+          ),
+        ],
       ),
     );
   }

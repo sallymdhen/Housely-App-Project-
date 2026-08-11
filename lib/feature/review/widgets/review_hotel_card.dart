@@ -14,7 +14,6 @@ class ReviewHotelCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
           child: Image.asset(
             "assets/image/villa1.png",
-
             width: 80,
             height: 62,
             fit: BoxFit.cover,
@@ -24,55 +23,63 @@ class ReviewHotelCard extends StatelessWidget {
         const SizedBox(width: 16),
 
         Expanded(
-          child: SizedBox(
-            height: 62,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Tropis Homestay",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTextStyle.authTitle.copyWith(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-
-                // const SizedBox(height: 6),
-                Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 62,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      size: 16,
-                      color: AppColor.greyColor,
+                    Text(
+                      "Tropis Homestay",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyle.authTitle.copyWith(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
                     ),
 
-                    const SizedBox(width: 2),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          size: 15,
+                          color: AppColor.greyColor,
+                        ),
 
-                    Expanded(
-                      child: Text(
-                        "Benhil, Jl. Bendungan Hilir Karet Tengsin,...",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppTextStyle.authSubTitle.copyWith(fontSize: 10),
+                        const SizedBox(width: 2),
+
+                        Expanded(
+                          child: Text(
+                            "Benhil, Jl. Bendungan Hilir Karet Tengsin,...",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTextStyle.authSubTitle.copyWith(
+                              fontSize: 10,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const Spacer(),
+
+                    Text(
+                      "08 Aug - 12 Aug",
+                      style: AppTextStyle.authSubTitle.copyWith(
+                        fontSize: 10,
+                        color: AppColor.greyColor,
                       ),
                     ),
                   ],
                 ),
+              ),
 
-                const Spacer(),
-
-                Text(
-                  "08 Aug - 12 Aug",
-                  style: AppTextStyle.authSubTitle.copyWith(
-                    fontSize: 10,
-                    color: AppColor.greyColor,
-                  ),
-                ),
-              ],
-            ),
+              const SizedBox(height: 8),
+            ],
           ),
         ),
       ],

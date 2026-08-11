@@ -4,6 +4,7 @@ import 'package:flutter_application_team2/core/constant/app_fonts.dart';
 import 'package:flutter_application_team2/core/constant/app_text_style.dart';
 import 'package:flutter_application_team2/feature/details_screen/data/review_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:io';
 
 class ReviewCard extends StatelessWidget {
   const ReviewCard({super.key, required this.review});
@@ -24,15 +25,22 @@ class ReviewCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.r),
-            child: Image.asset(
-              review.image,
-              width: 40.w,
-              height: 40.w,
-              fit: BoxFit.cover,
-            ),
-          ),
+         ClipRRect(
+  borderRadius: BorderRadius.circular(20.r),
+  child: review.image.startsWith("assets/")
+      ? Image.asset(
+          review.image,
+          width: 40.w,
+          height: 40.w,
+          fit: BoxFit.cover,
+        )
+      : Image.file(
+          File(review.image),
+          width: 40.w,
+          height: 40.w,
+          fit: BoxFit.cover,
+        ),
+),
 
           SizedBox(width: 12.w),
 
