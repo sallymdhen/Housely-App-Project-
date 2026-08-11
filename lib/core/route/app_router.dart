@@ -202,16 +202,16 @@ class AppRouter {
       ),
 
       GoRoute(
-        path: '/chat',
-        builder: (context, state) {
-          final extraData = state.extra as Map<String, dynamic>?;
+  path: '/chat',
+  builder: (context, state) {
+    final extraData = state.extra as Map<String, dynamic>?;
 
-          return ChatDetailScreen(
-            userName: extraData?['userName'] ?? '',
-            userAvatar: extraData?['userAvatar'] ?? '',
-          );
-        },
-      ),
+    return ChatDetailScreen(
+      userName: extraData?['userName'] ?? '',
+      userAvatar: extraData?['userAvatar'] ?? '',
+    );
+  },
+),
 
       GoRoute(
  path: '/DeleteConfirmationSheet',

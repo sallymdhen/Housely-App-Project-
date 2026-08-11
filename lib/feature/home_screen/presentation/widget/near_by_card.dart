@@ -7,6 +7,7 @@ import 'package:flutter_application_team2/feature/home_screen/presentation/widge
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+
 class NearByCard extends StatefulWidget {
   final EstateModel estate;
   final VoidCallback? onFavoriteChanged;

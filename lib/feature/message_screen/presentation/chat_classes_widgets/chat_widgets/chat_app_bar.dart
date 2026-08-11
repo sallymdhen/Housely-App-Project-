@@ -34,8 +34,8 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 radius: 20,
                 backgroundColor: AppColor.whiteColor,
                 backgroundImage: userAvatar.isNotEmpty
-                    ? NetworkImage(userAvatar)
-                    : null,
+    ? AssetImage(userAvatar)
+    : null,
                 child: userAvatar.isEmpty
                     ? Text(
                         userName.isNotEmpty ? userName[0].toUpperCase() : '?',
@@ -88,7 +88,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {},
-          icon: Image.asset("assets/icons/call.png"),
+          icon: Image.asset("assets/icons/Call.png"),
         ),
         IconButton(
           onPressed: () {},

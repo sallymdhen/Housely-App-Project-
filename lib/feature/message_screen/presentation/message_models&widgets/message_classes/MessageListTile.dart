@@ -20,7 +20,8 @@ class MessageListTile extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 26,
-              backgroundImage: NetworkImage(message.avatarUrl),
+               backgroundImage: AssetImage(message.avatarUrl),
+              //backgroundImage: NetworkImage(message.avatarUrl),
             ),
             SizedBox(width: 12),
             Expanded(

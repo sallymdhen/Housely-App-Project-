@@ -1,9 +1,11 @@
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_application_team2/core/constant/app_color.dart';
 import 'package:flutter_application_team2/core/constant/app_text_style.dart';
 import 'package:flutter_application_team2/feature/home_screen/data/estate_model.dart';
-import 'package:flutter_application_team2/feature/home_screen/presentation/widget/near_by_card.dart';
+import 'package:flutter_application_team2/feature/favorite_screen/data/favorite_data.dart';
 
-class FilterResultScreen extends StatelessWidget {
+class FilterResultScreen extends StatefulWidget {
   final List<EstateModel> estates;
 
   const FilterResultScreen({
@@ -12,53 +14,10 @@ class FilterResultScreen extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Filter Results'),
-        centerTitle: false,
-      ),
-      body: estates.isEmpty
-          ? Center(
-              child: Text(
-                'No properties found',
-                style: AppTextStyle.priceEstate,
-              ),
-            )
-          : ListView.separated(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 20,
-              ),
-              itemCount: estates.length,
-              separatorBuilder: (context, index) =>
-                  const SizedBox(height: 18),
-              itemBuilder: (context, index) {
-                return SizedBox(
-                  width: double.infinity,
-                  child: NearByCard(
-                    estate: estates[index],
-                    showFavorite: true,
-                  ),
-                );
-              },
-            ),
-    );
-  }
-}*/import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_application_team2/core/constant/app_color.dart';
-import 'package:flutter_application_team2/core/constant/app_text_style.dart';
-import 'package:flutter_application_team2/feature/home_screen/data/estate_model.dart';
+  State<FilterResultScreen> createState() => _FilterResultScreenState();
+}
 
-class FilterResultScreen extends StatelessWidget {
-  final List<EstateModel> estates;
-
-  const FilterResultScreen({
-    super.key,
-    required this.estates,
-  });
-
+class _FilterResultScreenState extends State<FilterResultScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,12 +28,14 @@ class FilterResultScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'Filter Results',
-         style:AppTextStyle.locationName.copyWith(fontWeight: FontWeight.w800,fontSize: 24),
+          style: AppTextStyle.locationName.copyWith(
+            fontWeight: FontWeight.w800,
+            fontSize: 24,
+          ),
         ),
       ),
-      body: estates.isEmpty
+      body: widget.estates.isEmpty
           ? _emptyResults()
-          
           : ListView.separated(
               padding: EdgeInsets.fromLTRB(
                 16.w,
@@ -82,7 +43,7 @@ class FilterResultScreen extends StatelessWidget {
                 16.w,
                 24.h,
               ),
-              itemCount: estates.length,
+              itemCount: widget.estates.length,
               separatorBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: 8.h),
@@ -95,7 +56,7 @@ class FilterResultScreen extends StatelessWidget {
               },
               itemBuilder: (context, index) {
                 return _EstateResultCard(
-                  estate: estates[index],
+                  estate: widget.estates[index],
                 );
               },
             ),
@@ -140,13 +101,18 @@ class FilterResultScreen extends StatelessWidget {
   }
 }
 
-class _EstateResultCard extends StatelessWidget {
+class _EstateResultCard extends StatefulWidget {
   final EstateModel estate;
 
   const _EstateResultCard({
     required this.estate,
   });
 
+  @override
+  State<_EstateResultCard> createState() => _EstateResultCardState();
+}
+
+class _EstateResultCardState extends State<_EstateResultCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -183,7 +149,7 @@ class _EstateResultCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        estate.name ?? 'Unnamed Property',
+                        widget.estate.name ?? 'Unnamed Property',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -208,7 +174,8 @@ class _EstateResultCard extends StatelessWidget {
                     SizedBox(width: 5.w),
                     Expanded(
                       child: Text(
-                        estate.location ?? 'Location unavailable',
+                        widget.estate.location ??
+                            'Location unavailable',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -221,15 +188,17 @@ class _EstateResultCard extends StatelessWidget {
                 ),
                 SizedBox(height: 16.h),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment:
+                      CrossAxisAlignment.end,
                   children: [
                     RichText(
                       text: TextSpan(
                         children: [
                           TextSpan(
                             text:
-                                '\$${estate.price?.toStringAsFixed(0) ?? '0'}',
+                                '\$${widget.estate.price?.toStringAsFixed(0) ?? '0'}',
                             style: TextStyle(
                               fontSize: 19.sp,
                               fontWeight: FontWeight.w800,
@@ -275,6 +244,9 @@ class _EstateResultCard extends StatelessWidget {
   }
 
   Widget _buildImage() {
+    final bool isFavourite =
+        FavoriteData.favorite.contains(widget.estate);
+
     return Stack(
       children: [
         ClipRRect(
@@ -284,9 +256,10 @@ class _EstateResultCard extends StatelessWidget {
           child: SizedBox(
             width: double.infinity,
             height: 205.h,
-            child: estate.image != null && estate.image!.isNotEmpty
+            child: widget.estate.image != null &&
+                    widget.estate.image!.isNotEmpty
                 ? Image.asset(
-                    estate.image!,
+                    widget.estate.image!,
                     fit: BoxFit.cover,
                   )
                 : Container(
@@ -299,20 +272,39 @@ class _EstateResultCard extends StatelessWidget {
                   ),
           ),
         ),
+
+        // ❤️ Favorite button
         Positioned(
           top: 12.h,
           right: 12.w,
-          child: Container(
-            width: 40.w,
-            height: 40.w,
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.92),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.favorite_border_rounded,
-              size: 22.sp,
-              color: Colors.black87,
+          child: InkWell(
+            onTap: () {
+              setState(() {
+                if (FavoriteData.favorite
+                    .contains(widget.estate)) {
+                  FavoriteData.favorite
+                      .remove(widget.estate);
+                } else {
+                  FavoriteData.favorite
+                      .add(widget.estate);
+                }
+              });
+            },
+            child: Container(
+              width: 40,
+              height: 40,
+             
+              child: isFavourite
+                  ? Image.asset(
+                      'assets/icons/fav_estate.png',
+                      width: 15,
+                      height: 15,
+                    )
+                  : Image.asset(
+                      'assets/icons/UnFav_estete.png',
+                      width: 15,
+                      height: 15,
+                    ),
             ),
           ),
         ),
@@ -323,8 +315,9 @@ class _EstateResultCard extends StatelessWidget {
   Widget _buildType() {
     String typeName = 'Property';
 
-    if (estate.type != null) {
-      typeName = estate.type.toString().split('.').last;
+    if (widget.estate.type != null) {
+      typeName =
+          widget.estate.type.toString().split('.').last;
       typeName =
           typeName[0].toUpperCase() + typeName.substring(1);
     }
@@ -335,7 +328,8 @@ class _EstateResultCard extends StatelessWidget {
         vertical: 6.h,
       ),
       decoration: BoxDecoration(
-        color: AppColor.primaryColor.withOpacity(0.10),
+        color:
+            AppColor.primaryColor.withOpacity(0.10),
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Text(
