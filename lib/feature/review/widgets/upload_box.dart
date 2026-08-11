@@ -23,7 +23,7 @@ class UploadBox extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(
                 width: double.infinity,
-                height: 120,
+                height: 150,
                 child: child,
               ),
             )
@@ -35,7 +35,7 @@ class UploadBox extends StatelessWidget {
               radius: const Radius.circular(12),
               child: Container(
                 width: double.infinity,
-                height: 120,
+                height: 140,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                 ),

@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             right: 10,
                             child: CircleAvatar(
                               backgroundColor: AppColor.redColor,
-                              radius: 2,
+                              radius: 3,
                             ),
                           ),
                         ],

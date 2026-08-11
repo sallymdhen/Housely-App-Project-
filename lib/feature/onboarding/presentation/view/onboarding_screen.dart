@@ -47,7 +47,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
       if (!mounted) return;
 
-      context.go('/permissionLocation');
+      context.go('/login');
     }
   }
 
@@ -72,11 +72,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   children: [
                     SizedBox(height: 30),
 
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: SkipButton(),
-                    ),
-
+                   if (currentIndex < onboardingData.length - 1)
+  Align(
+    alignment: Alignment.centerRight,
+    child: SkipButton(),
+  ),
                     SizedBox(height: 30),
 
                     SizedBox(
