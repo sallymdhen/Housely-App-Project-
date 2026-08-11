@@ -9,7 +9,7 @@ class AuthAppBar extends StatelessWidget {
     return Align(
       alignment: Alignment.topLeft,
       child: IconButton(
-        onPressed: () => context.go('/permissionLocation'),
+        onPressed: () => context.pop(context),
         icon: const Icon(Icons.arrow_back_outlined, size: 27),
       ),
     );

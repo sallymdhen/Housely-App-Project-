@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_team2/core/route/app_router.dart';
 import 'package:flutter_application_team2/core/widgets/bottom_button.dart';
 import 'package:flutter_application_team2/feature/auth/presentation/widget/auth_app_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -97,7 +96,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
       return;
     }
 
-     context.go('/createNewPassword');
+    context.push('/createNewPassword');
   }
 
   @override
@@ -113,65 +112,88 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.whiteColor,
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 30.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const AuthAppBar(),
-              SizedBox(height: 10.h),
-              Text(
-                "Verify your Email",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
-              ),
-              SizedBox(height: 10.h),
-              Text(
-                "Please enter 4 digit verification code",
-                style: TextStyle(color: Colors.grey, fontSize: 14.sp),
-              ),
-
-              AnimatedPadding(
-                duration: const Duration(milliseconds: 300),
-                padding: EdgeInsets.only(top: isTyping ? 40.h : 150.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    OtpBox(
-                      controller: c1,
-                      autoFocus: true,
-                      onChanged: _checkTyping,
-                    ),
-                    OtpBox(controller: c2, onChanged: _checkTyping),
-                    OtpBox(controller: c3, onChanged: _checkTyping),
-                    OtpBox(controller: c4, onChanged: _checkTyping),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: 35.h),
-              Center(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 30.h),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const AuthAppBar(),
+
+                    SizedBox(height: 10.h),
+
                     Text(
-                      "Don't receive code ?",
-                      style: TextStyle(fontSize: 14.sp),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Resend code",
-                        style: TextStyle(color: Colors.red, fontSize: 14.sp),
+                      "Verify your Email",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.sp,
                       ),
                     ),
+
+                    SizedBox(height: 10.h),
+
+                    Text(
+                      "Please enter 4 digit verification that have been sent to your email address",
+                      style: TextStyle(color: Colors.grey, fontSize: 14.sp),
+                    ),
+
+                    AnimatedPadding(
+                      duration: const Duration(milliseconds: 300),
+                      padding: EdgeInsets.only(top: isTyping ? 40.h : 150.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          OtpBox(
+                            controller: c1,
+                            autoFocus: true,
+                            onChanged: _checkTyping,
+                          ),
+                          OtpBox(controller: c2, onChanged: _checkTyping),
+                          OtpBox(controller: c3, onChanged: _checkTyping),
+                          OtpBox(controller: c4, onChanged: _checkTyping),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 35.h),
+
+                    Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            "Don't receive code ?",
+                            style: TextStyle(fontSize: 14.sp),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Resend code",
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 160),
+
+                    BottomButton(title: "Verify", onPressed: _verifyCode),
+
+                    //  SizedBox(height: 30),
                   ],
                 ),
               ),
-              const Spacer(),
-              BottomButton(title: "Verify", onPressed: _verifyCode),
-              SizedBox(height: 30.h),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
